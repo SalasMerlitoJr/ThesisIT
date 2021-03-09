@@ -130,6 +130,7 @@
   include '../../../includes/connect.php';
 
 //----------------------------------------------------
+
   if(isset($_POST['dismember'])){
                  
         //update student status in users_tbl
@@ -138,30 +139,44 @@
         $stmt5 = $conn->prepare($sql5);
         $stmt5->execute();
 
-        $sql6="DELETE from group_members_tbl where team = '$my_id' ";
+        $sql6="DELETE from team_members_tbl where team = '$my_id' ";
         $stmt6 = $conn->prepare($sql6);
         $stmt6->execute();
+
+        $sql7="DELETE from group_tbl where team_id = '$my_id'";
+        $stmt7 = $conn->prepare($sql7);
+        $stmt7->execute();
       
       }
 
 
   if(isset($_POST['deleteAll'])){
 
-        $sql6="DELETE from group_members_tbl ";
+        $sql6="DELETE from team_members_tbl";
         $stmt6 = $conn->prepare($sql6);
-        $stmt6->execute();
+        $stmt6->execute(); 
 
-        $sql5="UPDATE users_tbl SET status = 0";
-        $stmt5 = $conn->prepare($sql5);
-        $stmt5->execute();
-      
+        $sql7="DELETE from group_tbl";
+        $stmt7 = $conn->prepare($sql7);
+        $stmt7->execute();     
     }
 
-    if(isset($_POST['Set_all_status_to_zero_from_user_table'])){
+   /* if(isset($_POST['deleteAllRecords'])){
 
-        $sql5="UPDATE users_tbl SET status = 0 where status != 0";
-        $stmt5 = $conn->prepare($sql5);
-        $stmt5->execute();
+        $sql6="DELETE from users_tbl";
+        $stmt6 = $conn->prepare($sql6);
+        $stmt6->execute();   
+
+        $sql6="DELETE from team_members_tbl ";
+        $stmt6 = $conn->prepare($sql6);
+        $stmt6->execute();    
+    }*/
+
+    if(isset($_POST['Set_all_del_stat_to_zero_from_users_table'])){
+
+        $sql7="UPDATE users_tbl SET status = 0 where status != 0";
+        $stmt7 = $conn->prepare($sql7);
+        $stmt7->execute();
       
     }
 
@@ -171,13 +186,15 @@
         <center><form method="post">
                 <div style="height: 5em"></div>
 
-                  <center><button action="membersAddition.php" name="dismember" type="submit">Dismember</button></center>
+                  <center><button action="membersAddition.php" name="dismember" type="submit">Dismember Myself</button></center>
                   <center><button action="membersAddition.php" name="deleteAll" type="submit">Delete All Records from group_members_tbl</button></center>
-                  <center><button action="membersAddition.php" name="Set_all_status_to_zero_from_user_table" type="submit">Set all status to zero from users_table</button></center>
+                  <center><button action="membersAddition.php" name="Set_all_del_stat_to_zero_from_users_table" type="submit">Set all status to zero from users_table</button></center>
+                  
+                  <center><button action="membersAddition.php" name="deleteAllRecords" type="submit">Delete all records from database <strong>Think Again!</strong></button></center>
+
 
             </form></center>
                     
-
           </div>
         </div>
       </div>

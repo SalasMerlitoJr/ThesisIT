@@ -46,6 +46,7 @@ class Login{
     //keking addition
     $_SESSION["userpassword"] = $row["userpassword"];
     $_SESSION["status"] = $row["status"];
+    $_SESSION["del_stat"] = $row["del_stat"];
     
     if (empty($_POST['email']) || empty($_POST['password'])){
       $error = "Username or Password is invalid";

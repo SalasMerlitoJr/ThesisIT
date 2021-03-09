@@ -4,19 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
-  <!--<meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="theme-color" content="#3e454c">-->
 
   <script>document.getElementsByTagName("html")[0].className += " js";</script>
   <link rel="stylesheet" href="../admin_assets/css/style.css">
 
   <title>Admin Dashboard</title>
 
-  <!-- Font awesome -->
   <link rel="stylesheet" href="../admin_css/font-awesome.min.css">
   <!-- Sandstone Bootstrap CSS -->
   <link rel="stylesheet" href="../admin_css/bootstrap.min.css">
@@ -26,6 +19,9 @@
   <link rel="stylesheet" href="../admin_css/bootstrap-select.css">
   <!-- Admin Stye -->
   <link rel="stylesheet" href="../admin_css/style.css">
+
+  <link rel="stylesheet" href="../admin_css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../admin_css/awesome-bootstrap-checkbox.css">
 
 </head>
 
@@ -164,6 +160,47 @@
           <div class="col-md-12">
 
             <center><h2 class="page-title">Advisory Assignment Page</h2></center>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">Team List</div>
+              <div class="panel-body">
+
+                <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Team ID</th>
+                      <th>Team Name</th>
+                      <th>Initial Project Title</th>
+                      <th>Category</th>
+                      <th>Action</th> 
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+<?php
+    $sql4 = "SELECT * from group_tbl ";
+    $records4 = mysqli_query($conn, $sql4);
+    while  ($row4 = mysqli_fetch_object($records4)) {
+     //if(($row4->team) == ($my_id)){
+?>
+                    <tr>
+                      <td><?php echo htmlentities($row4->team_id);?></td>
+                      <td><?php echo htmlentities($row4->team_name);?></td>
+                      <td><?php echo htmlentities($row4->initial_title);?></td>
+                      <td><?php echo htmlentities($row4->initial_title_category);?></td>
+                                         
+<td>
+<a href="advisoryAssignment.php?gg=<?php ?>" onclick="return confirm('Assign Adviser?');"> Assign -</a>
+<a href="advisoryAssignment.php?gg=<?php ?>" onclick="return confirm('Do you want to delete this team's proposal??');"> Delete</a>
+</td>
+                    </tr>
+                  <?php } ?>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
             
           </div>
         </div>

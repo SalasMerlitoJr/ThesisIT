@@ -5,12 +5,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
-  <!--<meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="theme-color" content="#3e454c">-->
 
   <script>document.getElementsByTagName("html")[0].className += " js";</script>
   <link rel="stylesheet" href="../secretary_assets/css/style.css">
@@ -103,6 +97,50 @@
           <div class="col-md-12">
 
             <center><h2 class="page-title">Thesis Minutes Page</h2></center>
+
+            <!-------------->
+            <div class="row">
+                       
+              <div class="col-md-12">
+                            <h2>Give us Feedback</h2>
+                <div class="panel panel-default">
+                  <div class="panel-heading">Edit Info</div>
+
+<div class="panel-body">
+<form method="post" class="form-horizontal" enctype="multipart/form-data">
+
+<div class="form-group">
+    <input type="hidden" name="user" value="<?php echo htmlentities($result->email); ?>">
+  <label class="col-sm-2 control-label">Title<span style="color:red">*</span></label>
+  <div class="col-sm-4">
+  <input type="text" name="title" class="form-control" required>
+  </div>
+
+  <label class="col-sm-2 control-label">Attachment<span style="color:red"></span></label>
+  <div class="col-sm-4">
+  <input type="file" name="attachment" class="form-control">
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Description<span style="color:red">*</span></label>
+  <div class="col-sm-10">
+  <textarea class="form-control" rows="5" name="description"></textarea>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-8 col-sm-offset-2">
+    <button class="btn btn-primary" name="submit" type="submit">Send</button>
+  </div>
+</div>
+
+</form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-------------->
             
           </div>
         </div>

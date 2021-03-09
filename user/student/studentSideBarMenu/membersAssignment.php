@@ -1,6 +1,4 @@
-<?php include 'students_SESSION.php'; 
-
-?>
+<?php include 'students_SESSION.php'; ?>
 
 
 <!DOCTYPE html>
@@ -9,12 +7,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
-  <!--<meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="theme-color" content="#3e454c">-->
-
   <script>document.getElementsByTagName("html")[0].className += " js";</script>
   <link rel="stylesheet" href="../student_assets/css/style.css">
 
@@ -74,14 +66,12 @@
     <nav class="cd-side-nav js-cd-side-nav">
       <ul class="cd-side__list js-cd-side__list">
         <!--<li class="cd-side__label"><span>Main</span></li>-->
-        <li class="main-label">Student Page</li>
+        <li class="main-label">student Page</li>
         <li class="main-label_dup" style="color:white; text-align: center;"><?php $ufunc->UserName();?></li>
         
 
-        <li class="cd-side__item--selected ">          
-        </li>
-    
-        
+        <li class="cd-side__item--selected ">
+        </li>        
       </ul>
     
       <ul class="cd-side__list js-cd-side__list">
@@ -136,6 +126,8 @@
 
             <center><h2 class="page-title">Members Assignment Page</h2></center>
 
+            <center><h4><i>NOTE: </i>If you're the representative who is responsible for adding members to your team, <strong>DON'T FORGET TO ADD YOURSELF AS A MEMBER TO YOUR DESIRED TEAM SO THAT YOUR TEAM MATES WILL RECOGNIZE YOU AS THEIR REPRESENTATIVE.</strong></h4></center>
+
             <div class="panel panel-default">
               <?php if(isset($_GET['delete'])){ if($del_prompt_messasge){?><div class="succWrap" id="msgshow"><center><?php echo htmlentities($del_prompt_messasge); ?></center> </div><?php } }?>
               <div class="panel-heading">Choose Members</div>
@@ -172,7 +164,8 @@
     $stmt6->execute();
       
   }*/
-
+  $my_id = $_SESSION["user_id"];
+  $status = $_SESSION["status"];
   $sql = "SELECT * from users_tbl where type = 'student' ";
   $records = mysqli_query($conn, $sql);
   while  ($row = mysqli_fetch_object($records)) {
@@ -189,75 +182,128 @@
                       <td><?php echo htmlentities($row->section);?></td>
                       
 <td>
-<!--<a href="edit-user.php?edit=<?php // echo $result->id;?>" onclick="return confirm('Do you want to Edit');">&nbsp; <i class="fa fa-pencil"></i></a>&nbsp;&nbsp;-->
-<a href="membersAddition.php?add=<?php echo htmlentities($row->user_id); ?>" onclick="return confirm('Do you want to add a member and set his/her role in your team?');"> Add as a Member <!--<i class="fa fa-pencil"></i>--></a>
+<a href="membersAddition.php?add=<?php echo htmlentities($row->user_id); ?>" onclick="return confirm('Do you want to add a member and set his/her role in your team?');"> Add as Member </a>
 
 </td>
                     </tr>
                     <?php } } ?>
-                                       
-                    <!--<?php $cnt //  =$cnt+1; }} ?> -->
-                    
+                                                         
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
 
-<div style="height: 45em"></div>
+<!--<div style="height: 45em"></div>-->
 
 <?php
 
   include '../../../includes/connect.php';
 
   $my_id = $_SESSION["user_id"];
-  $sql4 = "SELECT name,team from users_tbl inner join group_members_tbl on user_id = member_id where team = '$my_id' ";
+  $sql4 = "SELECT user_id,name,section,status,team from users_tbl inner join team_members_tbl on user_id = member_id where team = '$my_id' ";
   $records4 = mysqli_query($conn, $sql4);
   $member_count=0;
   while  ($row4 = mysqli_fetch_object($records4)) { 
-      $member_count++; 
+      $member_count++;
+
 
 ?>
-
+                      <!--<center><h3><strong>Member </strong><?php // echo $member_count.": ".$row4->name;?></h3></center>-->
                     
-                      <!--<center><h1><?php //  htmlentities($row4->group_members_id);?></h1></center>-->
-                      <center><h4 style="text-align: center;"><strong>Member </strong><?php echo $member_count.": ".$row4->name;?></h4></center>
-                    
-<center><form method="post">
-<?php }
+<center><form method="post" action="setInitialTitle.php">
+  <!--<center><form method="post" action="membersAssignment.php">-->
 
-$group_id = $_SESSION["user_id"];
 
-/*if(isset($_POST['displayDeletedMember'])){
+  <!---------------->
+
+      <div class="container-fluid">  
+        <div class="row">
+          <div class="col-md-12">
+
+
+<?php
+  /*include '../../../includes/connect.php';
+  $status = $_SESSION["status"];
   $my_id = $_SESSION["user_id"];
-  $sql5="UPDATE users_tbl SET status = 0 where status = '$my_id' " ;
-  $stmt5 = $conn->prepare($sql5);
-  $stmt5->execute();
-}*/
+  $sql = "SELECT * from users_tbl ";
+  $records = mysqli_query($conn, $sql);
+  while  ($row = mysqli_fetch_object($records)) {
+    if(($row->status) != 0 and ($row->del_stat) != 0){*/
+?>                  
+                    <?php echo "Member ".$member_count.": ".$row4->name;  ?>
 
-$sql4 = "SELECT * from group_members_tbl where team = '$group_id' limit 1 ";
-    $records4 = mysqli_query($conn, $sql4);
-    while  ($row4 = mysqli_fetch_object($records4)) { 
-      if(($row4->team) == ($group_id)){ ?>
 
-        
-          <button name="sendTitle" type="submit" style="background-color: white; color: blue; float:justify;">Title Proposal</button>
-          <button name="displayDeletedMember" type="submit" style="background-color: white; color: blue; float:justify;">Display Deleted Member</button>
-        </form></center>
+        </div>
+      </div>
+ 
+
+           <!---------------->
+
+ <?php 
+
+} ?> 
+
+<?php
+  /*include '../../../includes/connect.php';
+  $my_id = $_SESSION["user_id"];
+  $sql5 = "SELECT * users_tbl where status = '$my_id' ";
+  $records5 = mysqli_query($conn, $sql5);
+  while ($row5 = mysqli_fetch_object($records5)) { */
+?>      
+
+<center><button name="sendTitle" type="submit" style="margin-top: 2.5em; background-color: white; color: blue; float:center">Title Proposal</button></center> 
+
+<center><form method="post">         
+
+<?php //} 
+
+if(isset($_POST['sendTitle'])){
+    include '../../../includes/connect.php';
+    $my_id = $_SESSION["user_id"];
+    $status = $_SESSION["status"];
     
-        <!--<a href="membersAssignment.php?displayDeletedMember=<?php // echo htmlentities($row->user_id); ?>" onclick="return confirm('Do you want to add a member and set his/her role in your team?');"> Add as Member</a>-->
-<?php  
-      }
-    }
-?>
+    if(isset($_POST['set_Title'])){
+        $team_id = $status;
+        $team_adviser = 1;//if wala ni, dili maka insert ug data sa group_tbl
+        $initial_title = $_POST['initial_title'];
+        $initial_title_category = $_POST['category'];
 
-          
-          <!-------->
-            
+        $sql2="INSERT into group_tbl (team_id,team_adviser,initial_title,initial_title_category) 
+                        values ('" . $team_id . "','" . $team_adviser . "','" . $initial_title . "','" . $initial_title_category . "')";
+        $stmt2 = $conn->prepare($sql2);
+        $stmt2->execute();
+      }
+
+    $sql10 = "SELECT * from users_tbl where user_id = '$status' and status = '$my_id' ";
+    $records10 = mysqli_query($conn, $sql10);
+    while($row10 = mysqli_fetch_object($records10)) {
+  ?>
+  <!--<center><form method="post">-->
+  <h1>Send na kag title?</h1>
+  <label>Project Proposal </label><br>
+  <input type="text" name=initial_title required>
+  <center><strong>Category</strong></center>
+
+    <center><select id="category" name="category" required="">
+            <option disabled selected="" required>----category----</option>         
+            <option type="text" value="Arduino" id="" name="category" required>Arduino</option>
+            <option type="text" value="Data Science" id="" name="category" required>Data Science</option>
+            <option type="text" value="Web Based" id="" name="category" required>Web Based</option>
+            <option type="text" value="Mobile Based" id="" name="category" required>Mobile Based</option>
+            <option type="text" value="Web based with Mobile" id="" name="category" required>Web based with Mobile</option>
+  </center></select>
+
+                  <button name="set_Title" type="submit" required>Set</button>
+<?php } } ?> 
+</form></center>
+    
           </div>
         </div>
       </div>
     </div>
+
+
   <!------->
   </main> <!-- .cd-main-content -->
   <script src="../student_assets/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->

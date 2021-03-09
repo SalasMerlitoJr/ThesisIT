@@ -123,12 +123,36 @@
     </nav>
 
     <div class="content-wrapper">
-      <div class="container-fluid">
-  
-        <div class="row">
+      <div class="container-fluid">  <div class="row">
           <div class="col-md-12">
 
             <center><h2 class="page-title">File Upload Page</h2></center>
+
+            <!---------------->
+            <div class="panel panel-default">
+              <div class="panel-heading">List Users</div>
+
+                <table class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                           <th>#</th>
+                        <th>User</th>
+                        <th>Message</th>
+                        <th>Action</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                    <tr>
+                      <td>?</td>
+                      <td>?</td>
+                      <td>?</td>
+                      <td>?</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <!---------------->
             
           </div>
         </div>

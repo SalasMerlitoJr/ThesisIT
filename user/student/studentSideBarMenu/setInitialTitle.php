@@ -1,23 +1,15 @@
 <?php include 'students_SESSION.php'; ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
-  <!--<meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="theme-color" content="#3e454c">-->
 
   <script>document.getElementsByTagName("html")[0].className += " js";</script>
   <link rel="stylesheet" href="../student_assets/css/style.css">
 
   <title>Admin Dashboard</title>
 
-  <!-- Font awesome -->
   <link rel="stylesheet" href="../student_css/font-awesome.min.css">
   <!-- Sandstone Bootstrap CSS -->
   <link rel="stylesheet" href="../student_css/bootstrap.min.css">
@@ -28,19 +20,21 @@
   <!-- Admin Stye -->
   <link rel="stylesheet" href="../student_css/style.css">
 
-</head>
+  <link rel="stylesheet" href="../student_css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../student_css/awesome-bootstrap-checkbox.css">
 
+</head>
 <body>
   <header class="cd-main-header js-cd-main-header">
     <div class="cd-logo-wrapper">
-      <!--<a href="#0" class="cd-logo"><img src="assets/img/cd-logo.svg" alt="Logo"></a>-->
+
       <div class="cd-logo"><img src="../student_assets/img/ustp_logo.png" alt="Logo" class="ustp_logo"></div>
     </div>
     
     <!--<div class="cd-search js-cd-search">-->
     <div class="js-cd-search">
       <form>
-        <!--<center><h3 class="thesis-title" style="color:white; margin-top: 1em">BSIT-USTP Thesis Management System</h3></center>-->
+
         <center><h3 class="thesis-title">USTP-BSIT Thesis Management System</h3></center>
       </form>
     </div>
@@ -57,9 +51,7 @@
         </a>
     
         <ul class="cd-nav__sub-list">
-          <center><li class="cd-nav__sub-item"><a href="accountManagement_student.php">My Account</a></li></center>
-
-          <!--<li class="cd-nav__sub-item"><a href="#0">Edit Account</a></li>-->
+          <center><li class="cd-nav__sub-item"><a href="accountManagement_student.php">My Account</a></li></center>                   <!--<li class="cd-nav__sub-item"><a href="#0">Edit Account</a></li>-->
           <center><li class="cd-nav__sub-item"><a href="../../../includes/logout.php">Logout</a></li></center>
         </ul>
       </li>
@@ -73,20 +65,18 @@
         <li class="main-label">student Page</li>
         <li class="main-label_dup" style="color:white; text-align: center;"><?php $ufunc->UserName();?></li>
         
-
         <li class="cd-side__item--selected ">          
         </li>
-    
-        
+            
       </ul>
     
       <ul class="cd-side__list js-cd-side__list">
 
-      	<li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
+        <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
           <!--<a href="">Feature 1</a>-->
           <a href="membersAssignment.php">Members Assignment</a>
         </li>
-      	<li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
+        <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
 
           <a href="fileUpload.php">File Upload</a>
 
@@ -99,7 +89,7 @@
           </ul>
         </li>
 
-        <li style="background-color:#4169E1" class="cd-side__sub-item cd-side__item cd-side__item--has-children">
+        <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
           <!--<a href="">Feature 4</a>-->
           <a href="thesisRating.php">Thesis Rating</a>
 
@@ -124,103 +114,82 @@
 
     </nav>
 
-    <!----------->
-
     <div class="content-wrapper">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-
-    <!----------->
-
-    <!--<div class="content-wrapper">
       <div class="container-fluid">
   
         <div class="row">
-          <div class="col-md-12">-->
+          <div class="col-md-12">
+<div style="height: 13em"></div>
 
-            <center><h2 class="page-title">Thesis Rating Page</h2></center>
+<center>
 
-            <!------------>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="panel panel-default">
-                  <div class="panel-heading">Notification</div>
-                     <div class="panel-body">
-            <!------------>
+<?php
+  include '../../../includes/connect.php';
+  
+  //$selected_id = $_GET['add'];
+  if(isset($_POST['set_Title'])){
+    $my_id = $_SESSION["user_id"];
+    $status = $_SESSION["status"];
+    $my_name = $_SESSION["name"];
+    $team_name = $my_name.' Team';
+
+    $team_id = $status;
+    $team_adviser = 1;//if wala ni, dili maka insert ug data sa group_tbl
+    $initial_title = $_POST['initial_title'];
+    $initial_title_category = $_POST['category'];
+
+    $sql3="INSERT into group_tbl (team_id,team_name,team_adviser,initial_title,initial_title_category) values ('" . $team_id . "','" . $team_name . "','" . $team_adviser . "','" . $initial_title . "','" . $initial_title_category . "')";
+    $stmt3 = $conn->prepare($sql3);
+    $stmt3->execute();
+
+    $sql="UPDATE team_members_tbl SET gro_mem_status = 1 where  team = '$my_id'" ;
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+
+}
+  ?>
+<center><form method="post">
+<?php 
+$my_id = $_SESSION["user_id"];
+include '../../../includes/connect.php';
+$sql = "SELECT * from team_members_tbl where team = '$my_id' limit 1";
+  $records = mysqli_query($conn, $sql);
+  while($row = mysqli_fetch_object($records)) {
+    if(($row->gro_mem_status)==0){ 
+?>
+  
+  <center><label>Initial Proposal Title</label></center>
+  <input type="text" name=initial_title required>
+  <center><strong>Category</strong></center>
+
+    <center><select id="category" name="category" required="">
+            <option disabled selected="" required>----------category----------</option>         
+            <option type="text" value="Arduino" id="" name="category" required>Arduino</option>
+            <option type="text" value="Data Science" id="" name="category" required>Data Science</option>
+            <option type="text" value="Web Based" id="" name="category" required>Web Based</option>
+            <option type="text" value="Mobile Based" id="" name="category" required>Mobile Based</option>
+            <option type="text" value="Web based with Mobile" id="" name="category" required>Web based with Mobile</option>
+  </center></select>
+
+                  <button name="set_Title" type="submit">Set</button>
             
-          <form method="post" class="form-horizontal" enctype="multipart/form-data">
+<?php  } 
+  if(($row->gro_mem_status)==1){ 
+      //if(($row->initial_title)==""){
+    //if(($row->gro_status)==0 and (empty($row->initial_title))){ 
+?>
+            <h1>You're initial project title has already been sent. </h1><h2>Now it's the turn for the admin to assign an adviser to your team based on the category of project proposal you choose.</h2> <h3>The faculties who will become advisers have their area of expertise or forte based on the category of the project proposal you have chosen.</h3>
 
-<div class="form-group">
-  <div class="col-sm-4">
-  </div>
-  <div class="col-sm-4 text-center">
-    <input type="file" name="image" class="form-control">
-    <input type="hidden" name="image" class="form-control" value="">
-  </div>
-  <div class="col-sm-4">
-  </div>
+<?php 
+
+ } }?>
+</form></center>
+
 </div>
-
-<div class="form-group">
-  <label class="col-sm-2 control-label">Name<span style="color:red">*</span></label>
-  <div class="col-sm-4">
-  <input type="text" name="name" class="form-control" required value="">
-  </div>
-
-  <label class="col-sm-2 control-label">Email<span style="color:red">*</span></label>
-  <div class="col-sm-4">
-  <input type="email" name="email" class="form-control" required value="">
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-sm-2 control-label">Mobile<span style="color:red">*</span></label>
-  <div class="col-sm-4">
-  <input type="number" name="mobile" class="form-control" required value="<?php echo htmlentities($result->mobile);?>">
-  </div>
-
-  <label class="col-sm-2 control-label">Designation<span style="color:red">*</span></label>
-  <div class="col-sm-4">
-  <input type="text" name="designation" class="form-control" required value="">
-  </div>
-</div>
-<input type="hidden" name="editid" class="form-control" required value="">
-
-<div class="form-group">
-  <div class="col-sm-8 col-sm-offset-2">
-    <button class="btn btn-primary" name="submit" type="submit">Save Changes</button>
-  </div>
-</div>
-
-</form>
-          </div>
         </div>
       </div>
     </div>
-  </div>
-          
-    <!------------->
-  <div class="content-wrapper">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="panel panel-default">
-                  <div class="panel-heading">Removed Members</div>
-                     <div class="panel-body">
-                      
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-  <!------------->
-        </div>
-      </div>
-    </div>
-  </div>
   <!------->
   </main> <!-- .cd-main-content -->
   <script src="../student_assets/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->

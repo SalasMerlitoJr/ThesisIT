@@ -9,26 +9,25 @@ $del_prompt_messasge = null;
 if(isset($_GET['remove'])){
 
     $selected_id = $_GET['remove'];
-    
-    //update student status in users_tbl
-    /*$my_id = $_SESSION["user_id"];
-    $status = $_SESSION["status"];
-    $sql="UPDATE users_tbl SET status = 0 where  status = '$status'" ;
-    //$sql="UPDATE users_tbl inner join users_tbl from group_members_tbl on user_id = member_id set status = 0 where status = $'status'"; //error in this line
+    $my_id = $_SESSION["user_id"];
+
+    $sql="UPDATE users_tbl SET status = 0 where  user_id = '$selected_id'" ;
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    /*$sql="UPDATE users_tbl SET status = 0, del_stat = '$selected_id' where  user_id = '$selected_id'" ;
     $stmt = $conn->prepare($sql);
     $stmt->execute();*/
 
-    $sql="UPDATE group_members_tbl SET gro_mem_status = '$my_id' where group_members_id = '$selected_id'" ;
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
                  
-    $sql1="DELETE from group_members_tbl where group_members_id = '$selected_id' ";
+    $sql1="DELETE from team_members_tbl where member_id = '$selected_id' ";
     $stmt1 = $conn->prepare($sql1);
     $stmt1->execute();
     $del_prompt_messasge="Deleted Successfully";
-    /*$sql1="DELETE from group_members_tbl where team = 0 and group_members_id = '$selected_id' ";
-    $stmt1 = $conn->prepare($sql1);
-    $stmt1->execute();
+
+    /*$sql2="DELETE from group_tbl where team_id = '$selected_id' and team_id = '$my_id'";
+    $stmt2 = $conn->prepare($sql2);
+    $stmt2->execute();
     $del_prompt_messasge="Deleted Successfully";*/
 }
 /*if(isset($_GET['remove2'])){
@@ -208,13 +207,13 @@ if(isset($_GET['remove'])){
 <?php
       $my_id = $_SESSION["user_id"];
       $status = $_SESSION["status"];
-      $sql4 = "SELECT name,section,group_members_id,team,member_id,role,gro_mem_status from users_tbl inner join group_members_tbl on user_id = member_id where member_id != '$my_id' and team = '$status' ";
+      $sql4 = "SELECT user_id,name,section,team_members_id,team,member_id,role,gro_mem_status from users_tbl inner join team_members_tbl on user_id = member_id where member_id != '$my_id' and team = '$status' ";
     $records4 = mysqli_query($conn, $sql4);
     while  ($row4 = mysqli_fetch_object($records4)) {
      if(($row4->team) == ($my_id)){
        //if((($row4->member_id) != ($my_id)) and (($row4->gro_mem_status)==($my_id))){
          if(($row4->member_id) != ($my_id)){
-          if(($row4->gro_mem_status)==($my_id)){
+          if(($row4->team)==($my_id)){
 ?>
 
 
@@ -228,8 +227,8 @@ if(isset($_GET['remove'])){
       
                       
 <td>
-<a href="gg.php?add=<?php echo htmlentities($row4->user_id); ?>" onclick="return confirm('Do you want to rate a member?');"> Rate  - <!--<i class="fa fa-pencil"></i>--></a>
-<a href="peerRating.php?remove=<?php echo htmlentities($row4->group_members_id); ?>" onclick="return confirm('Do you want to remove a member?');" > Remove <!--<i class="fa fa-pencil"></i>--></a>
+<a href="peerRating.php?add=<?php echo htmlentities($row4->user_id); ?>" onclick="return confirm('Muabot rata anang para sa rating, okay?');"> Rate  - <!--<i class="fa fa-pencil"></i>--></a>
+<a href="peerRating.php?remove=<?php echo htmlentities($row4->user_id); ?>" onclick="return confirm('Do you want to remove a member?');" > Remove <!--<i class="fa fa-pencil"></i>--></a>
 </td>
                     </tr>
                     <?php 
@@ -244,11 +243,9 @@ if(isset($_GET['remove'])){
                       <td><?php echo htmlentities($row4->name);?></td>
                       <td><?php echo htmlentities($row4->section);?></td>
                       <td><?php echo htmlentities($row4->role);?></td>
-                      
-      
-                      
+                                         
 <td>
-<a href="gg.php?add=<?php echo htmlentities($row4->user_id); ?>" onclick="return confirm('Do you want to rate a member?');"> Rate <!--<i class="fa fa-pencil"></i>--></a>
+<a href="peerRating.php?add=<?php echo htmlentities($row4->user_id); ?>" onclick="return confirm('Muabot rata anang para sa rating, okay?');"> Rate <!--<i class="fa fa-pencil"></i>--></a>
 </td>
                     </tr>
                 <?php 
@@ -258,20 +255,6 @@ if(isset($_GET['remove'])){
                 if(($row4->member_id) != ($my_id)){ */
 ?>
 
-
-                    <!--<tr>
-                      <td><?php // echo htmlentities($row4->member_id);?></td>
-                      <td><?php // echo htmlentities($row4->name);?></td>
-                      <td><?php // echo htmlentities($row4->section);?></td>
-                      <td><?php // echo htmlentities($row4->role);?></td>
-                      
-      
-                      
-<td>
-<a href="gg.php?add=<?php // echo htmlentities($row4->user_id); ?>" onclick="return confirm('Do you want to rate a member?');"> Rate  - </a>
-<a href="peerRating.php?remove=<?php // echo htmlentities($row4->group_members_id); ?>" onclick="return confirm('Do you want to remove a member?');"> Remove </a>
-</td>
-                    </tr>-->
                     <?php  
             /*} }*/ }
                 ?>

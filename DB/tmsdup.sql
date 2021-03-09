@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2021 at 12:30 PM
+-- Generation Time: Mar 09, 2021 at 01:03 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -24,31 +24,47 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `group_members_tbl`
+-- Table structure for table `group_tbl`
 --
 
-CREATE TABLE `group_members_tbl` (
-  `group_members_id` int(11) NOT NULL,
+CREATE TABLE `group_tbl` (
+  `group_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `team_adviser` int(11) NOT NULL,
+  `initial_title` varchar(255) NOT NULL,
+  `initial_title_category` varchar(255) NOT NULL,
+  `gro_status` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `group_tbl`
+--
+
+INSERT INTO `group_tbl` (`group_id`, `team_id`, `team_adviser`, `initial_title`, `initial_title_category`, `gro_status`) VALUES
+(1, 2, 1, 'hey', 'hoy', 0),
+(2, 15, 1, 'online construction', 'Mobile Based', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `team_members_tbl`
+--
+
+CREATE TABLE `team_members_tbl` (
+  `team_members_id` int(11) NOT NULL,
   `team` int(255) NOT NULL,
   `member_id` int(255) NOT NULL,
   `role` varchar(255) NOT NULL,
   `gro_mem_status` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `group_tbl`
+-- Dumping data for table `team_members_tbl`
 --
 
-CREATE TABLE `group_tbl` (
-  `group_id` int(255) NOT NULL,
-  `team_id` int(255) NOT NULL,
-  `team_adviser` int(255) NOT NULL,
-  `initial_title` varchar(255) NOT NULL,
-  `initial_title_category` varchar(255) NOT NULL,
-  `gro_status` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `team_members_tbl` (`team_members_id`, `team`, `member_id`, `role`, `gro_mem_status`) VALUES
+(3, 15, 15, 'Financer', 0),
+(4, 15, 5, 'Financer', 0);
 
 -- --------------------------------------------------------
 
@@ -93,8 +109,8 @@ INSERT INTO `users_tbl` (`user_id`, `name`, `email`, `userpassword`, `gender`, `
 (1, 'Faculty', 'faculty@faculty.com', '202cb962ac59075b964b07152d234b70', 'male', 2147483647, 'faculty', '', 0, 0),
 (2, 'Secretary', 'secretary@secretary.com', '202cb962ac59075b964b07152d234b70', 'male', 2147483647, 'secretary', '', 0, 0),
 (3, 'Admin', 'admin@admin.com', '202cb962ac59075b964b07152d234b70', 'male', 2147483647, 'admin', '', 0, 0),
-(4, 'Gedeon B.  Lumbayan ', 'gedeon@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R3', 0, 0),
-(5, 'James Joshua Balbon ', 'jebjeb@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R3', 0, 0),
+(4, 'Gedeon B.  Lumbayan ', 'gedeon@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R3', 15, 0),
+(5, 'James Joshua Balbon ', 'jebjeb@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R3', 15, 0),
 (6, 'Merlito Salas', 'paps@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R3', 0, 0),
 (7, 'Roderick Agol', 'kiking@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R3', 0, 0),
 (8, 'Bryan Sabejon', 'brybry@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R4', 0, 0),
@@ -104,24 +120,19 @@ INSERT INTO `users_tbl` (`user_id`, `name`, `email`, `userpassword`, `gender`, `
 (12, 'Junnabelle Labadan ', 'junna@gg.como', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R4', 0, 0),
 (13, 'Noel Angelou Echem', 'echem@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R4', 0, 0),
 (14, 'Jayson Bilar', 'son@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R4', 0, 0),
-(15, 'Linin Che Bagani', 'acao@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R4', 0, 0),
+(15, 'Linin Che Bagani', 'acao@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', '', 0, 'student', 'R4', 15, 0),
 (16, ' Faculty One ', 'f1@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', 'male', 505984589, 'faculty', NULL, 0, 0),
 (17, 'Faculty Two', 'f2@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', 'female', 8458375, 'faculty', NULL, 0, 0),
 (18, 'Faculty Three', 'f3@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', 'male', 456294857, 'faculty', NULL, 0, 0),
 (19, 'Faculty Four', 'f4@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', 'female', 47526459, 'faculty', NULL, 0, 0),
 (20, 'Faculty Five', 'f5@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', 'male', 9468094, 'faculty', NULL, 0, 0),
-(21, 'Faculty Six', 'f6@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', 'female', 92345783, 'faculty', NULL, 0, 0);
+(21, 'Faculty Six', 'f6@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', 'female', 92345783, 'faculty', NULL, 0, 0),
+(22, 'Faculty Seven', 'f7@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', 'male', 3787245, 'faculty', NULL, 0, 0),
+(23, 'Faculty Eight', 'f8@gg.com', '827ccb0eea8a706c4c34a16891f84e7b', 'female', 456247592, 'faculty', NULL, 0, 0);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `group_members_tbl`
---
-ALTER TABLE `group_members_tbl`
-  ADD PRIMARY KEY (`group_members_id`),
-  ADD KEY `team` (`team`);
 
 --
 -- Indexes for table `group_tbl`
@@ -130,6 +141,13 @@ ALTER TABLE `group_tbl`
   ADD PRIMARY KEY (`group_id`),
   ADD KEY `team_id` (`team_id`),
   ADD KEY `team_adviser` (`team_adviser`);
+
+--
+-- Indexes for table `team_members_tbl`
+--
+ALTER TABLE `team_members_tbl`
+  ADD PRIMARY KEY (`team_members_id`),
+  ADD KEY `team` (`team`);
 
 --
 -- Indexes for table `thesis_docu_tbl`
@@ -149,16 +167,16 @@ ALTER TABLE `users_tbl`
 --
 
 --
--- AUTO_INCREMENT for table `group_members_tbl`
---
-ALTER TABLE `group_members_tbl`
-  MODIFY `group_members_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `group_tbl`
 --
 ALTER TABLE `group_tbl`
-  MODIFY `group_id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `team_members_tbl`
+--
+ALTER TABLE `team_members_tbl`
+  MODIFY `team_members_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `thesis_docu_tbl`
@@ -177,17 +195,17 @@ ALTER TABLE `users_tbl`
 --
 
 --
--- Constraints for table `group_members_tbl`
---
-ALTER TABLE `group_members_tbl`
-  ADD CONSTRAINT `group_members_tbl_ibfk_1` FOREIGN KEY (`team`) REFERENCES `users_tbl` (`user_id`);
-
---
 -- Constraints for table `group_tbl`
 --
 ALTER TABLE `group_tbl`
   ADD CONSTRAINT `group_tbl_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `users_tbl` (`user_id`),
   ADD CONSTRAINT `group_tbl_ibfk_2` FOREIGN KEY (`team_adviser`) REFERENCES `users_tbl` (`user_id`);
+
+--
+-- Constraints for table `team_members_tbl`
+--
+ALTER TABLE `team_members_tbl`
+  ADD CONSTRAINT `team_members_tbl_ibfk_1` FOREIGN KEY (`team`) REFERENCES `users_tbl` (`user_id`);
 
 --
 -- Constraints for table `thesis_docu_tbl`
