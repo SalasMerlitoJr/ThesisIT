@@ -157,7 +157,7 @@ if(isset($_GET['delete'])){
           
           <ul class="cd-side__sub-list">
             <center><li  class="cd-side__sub-item"><a href="manageStudents_csv.php">Student Management</a></li></center>
-            <center><li style="background-color:#4169E1" class="cd-side__sub-item"><a href="../manageFaculty.php">Faculty Management</a></li></center>
+            <center><li style="background-color:#4169E1" class="cd-side__sub-item"><a href="manageFaculty_csv.php">Faculty Management</a></li></center>
             <center><li class="cd-side__sub-item"><a href="../manageSecretary.php">Secretary Management</a></li></center>
           </ul>
         </li>
@@ -216,41 +216,23 @@ if(isset($_GET['delete'])){
 
             <center><h2 class="page-title">Faculty Management Page</h2></center>
 
-            <!------------->
-            
-    <!--<div class="csv_section" style="margin-left: 0.4em">
-        <div class="import_section" style="margin-left: 6em">
-            <form class="form-horizontal" action="" method="post" name="uploadCSV" enctype="multipart/form-data">
-                <div class="input-row" style="margin-top: 1px;">
-                    <label class="col-md-4 control-label">Choose CSV File</label> 
-                      <input type="file" name="file" id="file" accept=".csv">
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form class="form-horizontal" action="" method="post" name="uploadCSV" enctype="multipart/form-data">
 
-                    <button type="submit" id="submit" name="import" class="btn-submit">IMPORT CSV</button>
-                </div>
-                <div id="response"></div>
-            </form>
-        </div>
-    </div>-->
-
-<!--<div class="head">
-  <div class="row">
-    <div class="col-6">
-        <form class="form-horizontal" style="margin-left: 10em" method="post" name="uploadCSV" enctype="multipart/form-data">
-        <input type="file" name="file" id="file" accept=".csv">
+      <div class="form-group">
+      <center>
+        <label>Choose CSV File</label> 
+        <input type="file" name="file" accept=".csv">
+      </center>
       </div>
-      <div class="col-6">
-      <button type="submit" id="submit" name="import" class="btn-submit">IMPORT CSV</button>
-    </div>
-    </form>
-  </div>
-  </div>
-</div>-->
 
-  <form class="form-horizontal" action="" method="post" name="uploadCSV" enctype="multipart/form-data">
-      <label class="col-md-4 control-label">Choose CSV File</label> 
-        <input type="file" name="file" id="file" accept=".csv">
-      <button type="submit" id="submit" name="import" class="btn-submit">IMPORT CSV</button>
+      <div class="form-group">
+      <center><button style="float: center" type="submit" name="import">IMPORT CSV</button></center>
+      </div>
     </form>
+  </div>
+</div>
 
     <?php
     if ($importCsv_prompt_messasge) {?> 
@@ -274,7 +256,6 @@ if(isset($_GET['delete'])){
                       <th>#</th>
                       <th>Name</th>
                       <th>Email</th>
-                      <th>Password</th>
                       <th>Gender</th>
                       <th>Phone Number</th>
                       <th>Action</th> 
@@ -305,7 +286,6 @@ foreach($results as $result)
                       <!--td><img src="../images/<?php // echo htmlentities($result->image);?>" style="width:50px; border-radius:50%;"/></td>-->
                       <td><?php echo htmlentities($row->name);?></td>
                       <td><?php echo htmlentities($row->email);?></td>
-                      <td><?php echo htmlentities($row->userpassword);?></td>
                       <td><?php echo htmlentities($row->gender);?></td>
                       <td><?php echo htmlentities($row->phone);?></td>
                       <!--<td><?php // echo htmlentities($result->designation);?></td>-->
@@ -319,16 +299,18 @@ foreach($results as $result)
                       </td>-->
                       
 <td>
-<!--<a href="edit-user.php?edit=<?php // echo $result->id;?>" onclick="return confirm('Do you want to Edit');">&nbsp; <i class="fa fa-pencil"></i></a>&nbsp;&nbsp;-->
-<a href="editRecords.php?edit=<?php echo htmlentities($row->user_id); ?>" onclick="return confirm('Do you want to EDIT this?');"> edit - <!--<i class="fa fa-pencil"></i>--></a>
+<!--<a href="edit-user.php?edit=<?php // echo $result->id;?>" onclick="return confirm('Do you want to Edit');">&nbsp; <i class="fa fa-pencil"></i></a>&nbsp;&nbsp>;-->
+<a href="editRecords.php?edit=<?php echo htmlentities($row->user_id); ?>" onclick="return confirm('Do you want to EDIT this?');"> edit </a>
+<a>|   |</a>
 
 <!--<a href="deleteStudents.php" onclick="return confirm('Do you want to Delete');"> delete --><!--<i class="fa fa-trash"></i>--> <!--</a>-->
 <a href="manageFaculty_csv.php?delete=<?php echo htmlentities($row->user_id);  ?>" onclick="return confirm('Do you want to DELETE this?');"> delete</a>
+<a>|   |</a>
+<a href="setMaximumTeamtoAdviser.php?setMaximumTeam=<?php echo htmlentities($row->user_id);  ?>" onclick="return confirm('Do you want to SET maximum team to this faculty?');"> set</a>
+
 </td>
                     </tr>
                     <?php } ?>
-                                       
-                    <!--<?php $cnt //  =$cnt+1; }} ?> -->
                     
                   </tbody>
                 </table>

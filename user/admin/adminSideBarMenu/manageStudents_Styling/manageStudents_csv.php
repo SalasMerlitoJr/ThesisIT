@@ -235,12 +235,23 @@ if(isset($_GET['delete'])){
             </form>
         </div>
     </div>-->
-
+<div class="panel panel-default">
+  <div class="panel-body">
     <form class="form-horizontal" action="" method="post" name="uploadCSV" enctype="multipart/form-data">
-      <label class="col-md-4 control-label">Choose CSV File</label> 
-        <input type="file" name="file" id="file" accept=".csv">
-      <button type="submit" id="submit" name="import" class="btn-submit">IMPORT CSV</button>
+
+      <div class="form-group">
+      <center>
+        <label>Choose CSV File</label> 
+        <input type="file" name="file" accept=".csv">
+      </center>
+      </div>
+
+      <div class="form-group">
+      <center><button style="float: center" type="submit" name="import">IMPORT CSV</button></center>
+      </div>
     </form>
+  </div>
+</div>
 
 
 
@@ -265,7 +276,7 @@ if(isset($_GET['delete'])){
                       <th>#</th>
                       <th>Name</th>
                       <th>Email</th>
-                      <th>Password</th>
+                      <th>Gender</th>
                       <th>Section</th>
                       <th>Action</th> 
                     </tr>
@@ -297,36 +308,7 @@ foreach($results as $result)
                       <!--td><img src="../images/<?php // echo htmlentities($result->image);?>" style="width:50px; border-radius:50%;"/></td>-->
                       <td><?php echo htmlentities($row->name);?></td>
                       <td><?php echo htmlentities($row->email);?></td>
-                      <td><?php echo htmlentities($row->userpassword);?></td>
-                      <td><?php echo htmlentities($row->section);?></td>
-                      <!--<td><?php // echo htmlentities($result->designation);?></td>-->
-                      <!--<td><?php /* if($result->status == 1)
-                                                    {?>
-                                                    <a href="userlist.php?confirm=<?php  echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Disable the Account')">Enable <i class="fa fa-check-circle"></i></a> 
-                                                    <?php } else {?>
-                                                    <a href="userlist.php?unconfirm=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Enable the Account')">Disable <i class="fa fa-times-circle"></i></a>
-                                                    <?php } */ ?> 
-
-                      </td>-->
-                      
-<td>
-<!--<a href="edit-user.php?edit=<?php // echo $result->id;?>" onclick="return confirm('Do you want to Edit');">&nbsp; <i class="fa fa-pencil"></i></a>&nbsp;&nbsp;-->
-<a href="editRecords.php?edit=<?php echo htmlentities($row->user_id); ?>" onclick="return confirm('Do you want to EDIT this?');"> edit - <!--<i class="fa fa-pencil"></i>--></a>
-
-<!--<a href="deleteStudents.php" onclick="return confirm('Do you want to Delete');"> delete --><!--<i class="fa fa-trash"></i>--> <!--</a>-->
-<a href="manageStudents_csv.php?delete=<?php echo htmlentities($row->user_id);  ?>" onclick="return confirm('Do you want to DELETE this?');"> delete</a>
-</td>
-                    </tr>
-                    <?php }if (($row->status) != 0) {
-                      # code...
-                    ?> 
-
-                    <tr>
-                      <td><?php echo htmlentities($row->user_id);?></td>
-                      <!--td><img src="../images/<?php // echo htmlentities($result->image);?>" style="width:50px; border-radius:50%;"/></td>-->
-                      <td><?php echo htmlentities($row->name);?></td>
-                      <td><?php echo htmlentities($row->email);?></td>
-                      <td><?php echo htmlentities($row->userpassword);?></td>
+                      <td><?php echo htmlentities($row->gender);?></td>
                       <td><?php echo htmlentities($row->section);?></td>
                       <!--<td><?php // echo htmlentities($result->designation);?></td>-->
                       <!--<td><?php /* if($result->status == 1)
@@ -341,6 +323,37 @@ foreach($results as $result)
 <td>
 <!--<a href="edit-user.php?edit=<?php // echo $result->id;?>" onclick="return confirm('Do you want to Edit');">&nbsp; <i class="fa fa-pencil"></i></a>&nbsp;&nbsp;-->
 <a href="editRecords.php?edit=<?php echo htmlentities($row->user_id); ?>" onclick="return confirm('Do you want to EDIT this?');"> edit <!--<i class="fa fa-pencil"></i>--></a>
+
+<a>|   |</a>
+<a href="manageStudents_csv.php?delete=<?php echo htmlentities($row->user_id);  ?>" onclick="return confirm('Do you want to DELETE this?');"> delete</a>
+</td>
+                    </tr>
+                    <?php }if (($row->status) != 0) {
+                      # code...
+                    ?> 
+
+                    <tr>
+                      <td><?php echo htmlentities($row->user_id);?></td>
+                      <!--td><img src="../images/<?php // echo htmlentities($result->image);?>" style="width:50px; border-radius:50%;"/></td>-->
+                      <td><?php echo htmlentities($row->name);?></td>
+                      <td><?php echo htmlentities($row->email);?></td>
+                      <td><?php echo htmlentities($row->gender);?></td>
+                      <td><?php echo htmlentities($row->section);?></td>
+                      <!--<td><?php // echo htmlentities($result->designation);?></td>-->
+                      <!--<td><?php /* if($result->status == 1)
+                                                    {?>
+                                                    <a href="userlist.php?confirm=<?php  echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Disable the Account')">Enable <i class="fa fa-check-circle"></i></a> 
+                                                    <?php } else {?>
+                                                    <a href="userlist.php?unconfirm=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Enable the Account')">Disable <i class="fa fa-times-circle"></i></a>
+                                                    <?php } */ ?> 
+
+                      </td>-->
+                      
+<td>
+  <a>is in a team  |</a>
+<!--<a href="edit-user.php?edit=<?php // echo $result->id;?>" onclick="return confirm('Do you want to Edit');">&nbsp; <i class="fa fa-pencil"></i></a>&nbsp;&nbsp;-->
+<a href="editRecords.php?edit=<?php echo htmlentities($row->user_id); ?>" onclick="return confirm('Do you want to EDIT this?');"> edit <!--<i class="fa fa-pencil"></i>--></a>
+
 </td>
                     </tr>
                   <?php } }?>

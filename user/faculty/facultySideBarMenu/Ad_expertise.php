@@ -33,7 +33,6 @@
     <!--<div class="cd-search js-cd-search">-->
     <div class="js-cd-search">
       <form>
-        <!--<center><h3 class="thesis-title" style="color:white; margin-top: 1em">BSIT-USTP Thesis Management System</h3></center>-->
         <center><h3 class="thesis-title">USTP-BSIT Thesis Management System</h3></center>
       </form>
     </div>
@@ -51,7 +50,6 @@
     
         <ul class="cd-nav__sub-list">
           <center><li class="cd-nav__sub-item"><a href="accountManagement_faculty.php">My Account</a></li></center>
-          <!--<li class="cd-nav__sub-item"><a href="#0">Edit Account</a></li>-->
           <center><li class="cd-nav__sub-item"><a href="../../../includes/logout.php">Logout</a></li></center>
         </ul>
       </li>
@@ -83,7 +81,6 @@
           <a>as Adviser</a>
           
           <ul class="cd-side__sub-list">
-            <!--<center><li class="cd-side__sub-item"><a href="adminSideBarMenu/manageStudents.php">Student Management</a></li></center>-->
             <center><li style="background-color:#4169E1" class="cd-side__sub-item"><a href="Ad_expertise.php">Expertise</a></li></center>
 
             <center><li class="cd-side__sub-item"><a href="Ad_fileUpload.php">File Upload</a></li></center>
@@ -105,7 +102,6 @@
           <a>as Panelist</a>
           
           <ul class="cd-side__sub-list">
-            <!--<center><li class="cd-side__sub-item"><a href="adminSideBarMenu/manageStudents.php">Student Management</a></li></center>-->
             <center><li class="cd-side__sub-item"><a href="Pan_prefSched.php">Preferred Schedule</a></li></center>
 
             <center><li class="cd-side__sub-item"><a href="Pan_defSched.php">Defense Schedule</a></li></center>
@@ -123,11 +119,58 @@
     <div class="content-wrapper">
       <div class="container-fluid">
   
-        <div class="row">
+        <center><div class="row"></center>
           <div class="col-md-12">
 
             <center><h2 class="page-title">Adviser Expertise Page</h2></center>
+<div style="height: 9em"></div>
+            <!------------------>
+            <div class="panel panel-default">
+
             
+
+            <div class="panel-body">
+            <form method="post" class="form-horizontal" enctype="multipart/form-data">
+<?php
+  include '../../../includes/connect.php';
+  
+  if(isset($_POST['setField'])){
+    $my_id = $_SESSION["user_id"];
+    $fields = $_POST['inputField'];
+
+    $sql3="INSERT into adviser_fields_tbl (adviser,field) values ('" . $my_id . "','" . $fields . "')";
+    $stmt3 = $conn->prepare($sql3);
+    $stmt3->execute();
+
+    /*$sql="UPDATE team_members_tbl SET gro_mem_status = 1 where  team = '$my_id'" ;
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();*/
+}
+  ?>
+
+              
+
+        <center><label>Fields and Forte</label></center>
+    <center><input type="text" name="inputField"></center><br>
+    <center><button value="" name="setField" type="submit">Add</button></center><br>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+            <!------------------>
+
+            <center><h1>Your Fields of Expertise</h1></center>
+<?php 
+$my_id = $_SESSION["user_id"];
+$sql = "SELECT * from adviser_fields_tbl where adviser = '$my_id' ";
+  $records = mysqli_query($conn, $sql);
+  while($row = mysqli_fetch_object($records)) {
+?>  
+<center><h4>--| <?php echo htmlentities($row->field) ;?> |--</h4></center>          
+<?php } ?>
           </div>
         </div>
       </div>

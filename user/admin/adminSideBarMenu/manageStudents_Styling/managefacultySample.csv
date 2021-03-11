@@ -1,9 +1,13 @@
 ﻿name,email,userpassword,gender,phone,type
- Faculty One ,f1@gg.com,12345,male,505984589,faculty
-Faculty Two,f2@gg.com,12345,female,8458375,faculty
-Faculty Three,f3@gg.com,12345,male,456294857,faculty
-Faculty Four,f4@gg.com,12345,female,47526459,faculty
-Faculty Five,f5@gg.com,12345,male,9468094,faculty
-Faculty Six,f6@gg.com,12345,female,92345783,faculty
-Faculty Seven,f7@gg.com,12345,male,3787245,faculty
-Faculty Eight,f8@gg.com,12345,female,456247592,faculty
+ Jomar Llevado ,f1@gg.com,12345,male,,faculty
+Anna Fay Edulsa,f2@gg.com,12345,female,,faculty
+Ulrich Uy,f3@gg.com,12345,male,,faculty
+Paul Estrera,f4@gg.com,12345,male,,faculty
+Vince Calo,f5@gg.com,12345,male,,faculty
+Elon Musk ,f6@gg.com,12345,male,,faculty
+Mark Zuckerberg ,f7@gg.com,12345,male,,faculty
+Bill Gates,f8@gg.com,12345,male,,faculty
+Archie Pachica,f9@gg.com,12345,male,,faculty
+Jocelyn Garrido,f10@gg.com,12345,male,,faculty
+Petal May Dal,f11@gg.com,12345,male,,faculty
+Bill Gates,f12@gg.com,12345,male,,faculty

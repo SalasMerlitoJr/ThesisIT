@@ -216,14 +216,38 @@
     $_POST['name'];
     $msg="Name Changed Sucessfully";
   }
-  if(isset($_POST['edit_email'])){
+  
+  /*if(isset($_POST['edit_email'])){
     $new_email = $_POST['email'];              
     $sql="UPDATE users_tbl SET email='$new_email' where user_id = '$id'";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $_POST['email'];
     $msg="Email Changed Sucessfully";
-  }
+  }*/
+
+
+  if(isset($_POST['edit_email'])){
+    $new_email = $_POST['email'];
+    //$new_email = 'kiking@gg.com';
+    $my_email = $_SESSION["email"];
+    $my_id = $_SESSION["user_id"];
+    $status = $_SESSION["status"];
+    $sql = "SELECT email from users_tbl ";
+    $records = mysqli_query($conn, $sql);
+    while  ($row = mysqli_fetch_object($records)) {
+      if(($row->email) != ($new_email)){
+                    $sql="UPDATE users_tbl SET email='$new_email' where user_id = '$id' ";
+
+          $stmt = $conn->prepare($sql);
+          $stmt->execute();
+          $_POST['email'];
+          $msg="Email Changed Sucessfully";
+                
+      }
+        else if(($row->email) == ($new_email)){
+                      $msg="Email Is Already Been Taken";
+      } } }
 
   $sql = "SELECT * from users_tbl where user_id = '$id' ";
   $records = mysqli_query($conn, $sql);
@@ -244,9 +268,7 @@
                   </tbody>
                 </table>
                </center>
-    <!--<center><a href="manageStudents_csv.php">Logout</a></center>--><!--wala nag work-->   
-    <!--<center><a href="deleteStudents.php">Logout</a></center>--><!--nag work-->  
-    <!--<center><a href="index_dup_2_noExportDl.php">Logout</a></center>--><!--nag work-->
+
     <center><a href="manageStudents_csv.php">back</a></center>
             <!------------------> 
 
@@ -258,66 +280,14 @@
             <form method="post" class="form-horizontal" enctype="multipart/form-data">
 
               <div class="form-group">
-                <!--<label class="col-sm-2 control-label">Full Name<span style="color:red">:</span></label>
-                  <div class="col-sm-4">-->
-                    <!--<input type="text" name="name" class="form-control" required value="<?php // $ufunc->UserName(); ?>">-->
-                    <!--<input type="text" name="name" class="form-control" placeholder = "edit name">-->
 
-                  <!--</div>-->
                   <center> <strong style="font-size: 2em"><?php echo htmlentities($row->name); ?></strong></center>
                 </div>
 
-                <!--<div class="form-group">
-                  <div class="col-sm-8 col-sm-offset-2">
-                    <button class="btn btn-primary" action = "editSucess.php" name="edit_name" type="submit">Update</button>
-                  </div>
-                </div>-->
-
               <div class="form-group">
                 <center> <strong style="font-size: 2em"><?php echo htmlentities($row->email); ?></strong></center>
-                  <!-- <div class="col-sm-4">-->
-                   <!--<input type="email" name="email" class="form-control" placeholder = "edit email" >
-                   
-                  </div>-->
+
               </div>
-             
-
-
-              <!--<div class="form-group">
-                <div class="col-sm-8 col-sm-offset-2">
-                  <button class="btn btn-primary" action = "editSucess.php" name="edit_email" type="submit">Update</button>
-                </div>
-              </div>-->
-
-              <!--<?php 
-            
-            //include '../../../../includes/connect.php';
-             // $msg = null;
-              
-
-              /*if(isset($_POST['edit_name'])){
-                $new_name = $_POST['name'];
-                //$id = $_GET['edit'];
-                $sql="UPDATE tbl_users SET name='$new_name' where id = '$id' ";
-                //$sql = " password != '$password' begin UPDATE tbl_users SET password='$password' where login = '$fafa'";
-                $stmt = $conn->prepare($sql);
-                $stmt->execute();
-
-              }*/
-
-             /* if(isset($_POST['edit_name'])){
-                $new_name = $_POST['name'];
-                $id = $_GET['edit'];              
-                $sql="UPDATE tbl_users SET name='$new_name' where id = '$id'";
-                $stmt = $conn->prepare($sql);
-                $stmt->execute();
-                $_POST['name'];
-                $msg="Email Changed Sucessfully";
-              }*/
-            //}
-              
-            ?>-->
-
 
               <div class="form-group">
                 <center>  <label class="col-sm-2 control-label">Full Name<span style="color:red">*</span></label></center>

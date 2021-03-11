@@ -174,7 +174,6 @@
                       <div class="panel-body bk-primary text-light">
                         <div class="stat-panel text-center">
 <?php 
-//$sql ="SELECT id from users where role = 0";
 $sql ="SELECT user_id from users_tbl where type = 'student' ";
 $records = mysqli_query($conn, $sql);
 $rowcount = mysqli_num_rows($records);
@@ -192,7 +191,6 @@ $rowcount = mysqli_num_rows($records);
                         <div class="stat-panel text-center">
 
 <?php 
-//$sql ="SELECT id from users where role = 2";
 $sql ="SELECT user_id from users_tbl where type = 'faculty' ";
 $records = mysqli_query($conn, $sql);
 $rowcount = mysqli_num_rows($records);

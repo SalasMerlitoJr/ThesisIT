@@ -134,15 +134,17 @@
     $team_name = $my_name.' Team';
 
     $team_id = $status;
-    $team_adviser = 1;//if wala ni, dili maka insert ug data sa group_tbl
+    //$team_adviser = $my_id;//if wala ni, dili maka insert ug data sa group_tbl
+    $team_adviser = $my_id;
     $initial_title = $_POST['initial_title'];
     $initial_title_category = $_POST['category'];
+    $gro_status = 1;
 
-    $sql3="INSERT into group_tbl (team_id,team_name,team_adviser,initial_title,initial_title_category) values ('" . $team_id . "','" . $team_name . "','" . $team_adviser . "','" . $initial_title . "','" . $initial_title_category . "')";
+    $sql3="INSERT into group_tbl (team_id,team_name,team_adviser,initial_title,initial_title_category,gro_status) values ('" . $my_id . "','" . $team_name . "','" . $team_adviser . "','" . $initial_title . "','" . $initial_title_category . "','" . $gro_status . "')";
     $stmt3 = $conn->prepare($sql3);
     $stmt3->execute();
 
-    $sql="UPDATE team_members_tbl SET gro_mem_status = 1 where  team = '$my_id'" ;
+    $sql="UPDATE team_members_tbl SET gro_mem_status = '$my_id' where  team = '$my_id'" ;
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
@@ -175,9 +177,7 @@ $sql = "SELECT * from team_members_tbl where team = '$my_id' limit 1";
                   <button name="set_Title" type="submit">Set</button>
             
 <?php  } 
-  if(($row->gro_mem_status)==1){ 
-      //if(($row->initial_title)==""){
-    //if(($row->gro_status)==0 and (empty($row->initial_title))){ 
+  if(($row->gro_mem_status)!=0){ 
 ?>
             <h1>You're initial project title has already been sent. </h1><h2>Now it's the turn for the admin to assign an adviser to your team based on the category of project proposal you choose.</h2> <h3>The faculties who will become advisers have their area of expertise or forte based on the category of the project proposal you have chosen.</h3>
 

@@ -215,8 +215,8 @@ if(isset($_GET['delete'])){
                       <th>#</th>
                       <th>Name</th>
                       <th>Email</th>
-                      <th>Password</th>
-                      <th>Role</th>
+                      <th>Gender</th>
+                      <th>Phone Number</th>
                       <th>Action</th> 
                     </tr>
                   </thead>
@@ -249,8 +249,8 @@ foreach($results as $result)
                       <!--td><img src="../images/<?php // echo htmlentities($result->image);?>" style="width:50px; border-radius:50%;"/></td>-->
                       <td><?php echo htmlentities($row->name);?></td>
                       <td><?php echo htmlentities($row->email);?></td>
-                      <td><?php echo htmlentities($row->userpassword);?></td>
-                      <td><?php echo htmlentities($row->type);?></td>
+                      <td><?php echo htmlentities($row->gender);?></td>
+                      <td><?php echo htmlentities($row->gender);?></td>
                       <!--<td><?php // echo htmlentities($result->designation);?></td>-->
                       <!--<td><?php /* if($result->status == 1)
                                                     {?>

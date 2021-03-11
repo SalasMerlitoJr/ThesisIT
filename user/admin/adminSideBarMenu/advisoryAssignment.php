@@ -178,20 +178,23 @@
                   
                   <tbody>
 <?php
-    $sql4 = "SELECT * from group_tbl ";
+    //include '../../../../includes/connect.php';
+    $my_id = $_SESSION['user_id'];
+    $sql4 = "SELECT user_id,name,type,group_id,team_adviser,team_name,initial_title,initial_title_category from users_tbl inner join group_tbl on user_id = team_adviser where gro_status != 0 ";
     $records4 = mysqli_query($conn, $sql4);
     while  ($row4 = mysqli_fetch_object($records4)) {
-     //if(($row4->team) == ($my_id)){
+      //if(($row4->name) == 'Admin'){ 
+      //if(($row4->user_id) == $my_id){
 ?>
-                    <tr>
-                      <td><?php echo htmlentities($row4->team_id);?></td>
-                      <td><?php echo htmlentities($row4->team_name);?></td>
-                      <td><?php echo htmlentities($row4->initial_title);?></td>
-                      <td><?php echo htmlentities($row4->initial_title_category);?></td>
-                                         
+      <tr>
+        <td><?php echo htmlentities($row4->group_id);?></td>
+        <td><?php echo htmlentities($row4->team_name);?></td>
+        <td><?php echo htmlentities($row4->initial_title);?></td>
+        <td><?php echo htmlentities($row4->initial_title_category);?></td>                                      
 <td>
-<a href="advisoryAssignment.php?gg=<?php ?>" onclick="return confirm('Assign Adviser?');"> Assign -</a>
-<a href="advisoryAssignment.php?gg=<?php ?>" onclick="return confirm('Do you want to delete this team's proposal??');"> Delete</a>
+<a href="assignAdvisertoTeam.php?assignAdviser=<?php echo htmlentities($row4->group_id); ?>" onclick="return confirm('Assign Adviser?');"> Assign</a>
+<a>|   |</a>
+<a onclick="return confirm('Do you want to delete this team proposal?');">Delete</a>
 </td>
                     </tr>
                   <?php } ?>
@@ -201,11 +204,118 @@
               </div>
             </div>
           </div>
+
+<!---------------->
+
+    <!--    <div class="container-fluid">
+  
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="panel panel-default">
+              <div class="panel-heading">Group List</div>
+              <div class="panel-body">
+
+                <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Team ID</th>
+                      <th>Team Name</th>
+                      <th>Initial Project Title</th>
+                      <th>Category</th>
+                      <th>Action</th> 
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+<?php
+/*
+    //include '../../../../includes/connect.php';
+    $sql4 = "SELECT * from group_tbl ";
+    $records4 = mysqli_query($conn, $sql4);
+    while  ($row4 = mysqli_fetch_object($records4)) {
+      if(empty($row4->team_adviser)){ */
+?>
+      <tr>
+        <td><?php // echo htmlentities($row4->group_id);?></td>
+        <td><?php // echo htmlentities($row4->team_name);?></td>
+        <td><?php // echo htmlentities($row4->initial_title);?></td>
+        <td><?php // echo htmlentities($row4->initial_title_category);?></td>                                      
+<td>
+<a href="assignAdvisertoTeam.php?assignAdviser=<?php // echo htmlentities($row4->group_id); ?>" onclick="return confirm('Assign Adviser?');"> Assign</a>
+<a>|   |</a>
+<a onclick="return confirm('Do you want to delete this team proposal?');">Delete</a>
+</td>
+                    </tr>
+                  <?php //} }?>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div></div></div>
+
             
           </div>
         </div>
       </div>
+    </div> -->
+
+<!---------------->
+
+<!------------------>
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="panel panel-default">
+              <div class="panel-heading">Group List</div>
+                <div class="panel-body">
+
+
+                <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Team Name</th>                      
+                      <th>Initial Project Title</th>
+                      <th>Category</th>
+                      <th>Adviser Name</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+<?php
+    include '../../../includes/connect.php';
+    $sql4 = "SELECT user_id,name,group_id,team_id,team_name,team_adviser,initial_title,initial_title_category from users_tbl inner join group_tbl on user_id = team_adviser where status = 0 ";
+    $records4 = mysqli_query($conn, $sql4);
+    while  ($row4 = mysqli_fetch_object($records4)) {
+?>
+      <tr>
+        <td><?php echo htmlentities($row4->team_name);?></td>      
+        <td><?php echo htmlentities($row4->initial_title);?></td>
+        <td><?php echo htmlentities($row4->initial_title_category);?></td>             
+        <td><strong><?php echo htmlentities($row4->name);?></strong></td>         
+
+                    </tr>
+                  <?php } ?>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+          </div>
+        </div>
+      </div>
     </div>
+<!------------------>
+<!---------->
+
+
   <!------->
   </main> <!-- .cd-main-content -->
   <script src="../admin_assets/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->

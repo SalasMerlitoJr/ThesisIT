@@ -5,7 +5,6 @@
 $msg = null;
 $del_prompt_messasge = null;
 
-
 if(isset($_GET['remove'])){
 
     $selected_id = $_GET['remove'];
@@ -239,7 +238,7 @@ if(isset($_GET['remove'])){
                     if(($row4->member_id) != ($my_id)){
               ?>
                     <tr>
-                      <td><?php echo htmlentities($row4->group_members_id);?></td>
+                      <td><?php echo htmlentities($row4->user_id);?></td>
                       <td><?php echo htmlentities($row4->name);?></td>
                       <td><?php echo htmlentities($row4->section);?></td>
                       <td><?php echo htmlentities($row4->role);?></td>

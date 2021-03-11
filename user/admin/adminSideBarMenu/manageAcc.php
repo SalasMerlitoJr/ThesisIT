@@ -189,19 +189,27 @@
             include '../../../includes/connect.php';
             $msg = null;
 
-              if(isset($_POST['edit_password'])){
+            if(isset($_POST['edit_password'])){
                 $password=md5($_POST['password']);
-                $fafa=$_SESSION["email"];
-                $sql="UPDATE users_tbl SET userpassword='$password' where email = '$fafa' and userpassword != '$password' ";
-                //$sql = " password != '$password' begin UPDATE tbl_users SET password='$password' where login = '$fafa'";
-                $stmt = $conn->prepare($sql);
-                $stmt->execute();
-                $_SESSION['userpassword'] = md5($_POST['password']);
+                $my_email=$_SESSION["email"];
+                $my_id = $_SESSION["user_id"];
+                $status = $_SESSION["status"];
+                $sql = "SELECT * from users_tbl where user_id != '$my_id' ";
+                $records = mysqli_query($conn, $sql);
+                while  ($row = mysqli_fetch_object($records)) {
+                  if(($row->userpassword) != ($password)){
+                    $sql="UPDATE users_tbl SET userpassword='$password' where email = '$my_email' ";
 
-                $msg="Password Changed Sucessfully";
+                      $stmt = $conn->prepare($sql);
+                      $stmt->execute();
+                      $_SESSION['userpassword'] = md5($_POST['password']);
+                      $msg="Password Changed Sucessfully";
                 
-            }
-              
+                  }
+                   else if(($row->userpassword) == ($password)){
+                      $msg="Password Is Already Been Taken";
+                  } }
+              }
             ?>
 
           <div class="panel panel-default">
