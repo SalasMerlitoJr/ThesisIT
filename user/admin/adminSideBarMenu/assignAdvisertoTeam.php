@@ -46,14 +46,13 @@ if(isset($_POST['setAdviser'])){
 
 <!------------------>
 <?php 
-/* */
+/* 
 $group_id = $_GET['assignAdviser']; // group_id from group_tbl 
 $sql4 ="SELECT * from group_tbl where team_adviser = 46 ";
 $records = mysqli_query($conn, $sql4);
 $rowcount = mysqli_num_rows($records);
 ?>
-<h1><?php echo $rowcount; ?></h1>
-<?php 
+<h1><?php echo $rowcount; ?></h1>*/
 
 
 /*
@@ -103,7 +102,8 @@ while($row5 = mysqli_fetch_object($records5)) {
 <button name="setAdviser" type="submit">assign</button>
 </form></center>
 
-<?php 
+<?php
+$group_id = $_GET['assignAdviser'];
 $sql5 = "SELECT * from users_tbl where user_id = '$group_id' ";
 $records5 = mysqli_query($conn, $sql5);
 while($row5 = mysqli_fetch_object($records5)){ ?>
