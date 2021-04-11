@@ -136,10 +136,6 @@ if(isset($_GET['remove'])){
       <ul class="cd-side__list js-cd-side__list">
 
       	<li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
-          <!--<a href="">Feature 1</a>-->
-          <a href="membersAssignment.php">Members Assignment</a>
-        </li>
-      	<li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
 
           <a href="fileUpload.php">File Upload</a>
 
@@ -203,62 +199,36 @@ if(isset($_GET['remove'])){
                   
                   <tbody>
 
-<?php
+<?php /*
       $my_id = $_SESSION["user_id"];
-      $status = $_SESSION["status"];
+      $status = $_SESSION["user_status"];
       $sql4 = "SELECT user_id,name,section,team_members_id,team,member_id,role,gro_mem_status from users_tbl inner join team_members_tbl on user_id = member_id where member_id != '$my_id' and team = '$status' ";
     $records4 = mysqli_query($conn, $sql4);
     while  ($row4 = mysqli_fetch_object($records4)) {
      if(($row4->team) == ($my_id)){
        //if((($row4->member_id) != ($my_id)) and (($row4->gro_mem_status)==($my_id))){
          if(($row4->member_id) != ($my_id)){
-          if(($row4->team)==($my_id)){
+          if(($row4->team)==($my_id)){ */
 ?>
 
 
                     <tr>
                       <!--<td><?php // echo htmlentities($row4->group_members_id);?></td>-->
-                      <td><?php echo htmlentities($row4->member_id);?></td>
-                      <td><?php echo htmlentities($row4->name);?></td>
-                      <td><?php echo htmlentities($row4->section);?></td>
-                      <td><?php echo htmlentities($row4->role);?></td>
+                      <td><?php //echo htmlentities($row4->member_id);?></td>
+                      <td><?php //echo htmlentities($row4->name);?></td>
+                      <td><?php //echo htmlentities($row4->section);?></td>
+                      <td><?php //echo htmlentities($row4->role);?></td>
                       
       
                       
 <td>
-<a href="peerRating.php?add=<?php echo htmlentities($row4->user_id); ?>" onclick="return confirm('Muabot rata anang para sa rating, okay?');"> Rate  - <!--<i class="fa fa-pencil"></i>--></a>
-<a href="peerRating.php?remove=<?php echo htmlentities($row4->user_id); ?>" onclick="return confirm('Do you want to remove a member?');" > Remove <!--<i class="fa fa-pencil"></i>--></a>
+<a href="peerRating.php?add=<?php echo htmlentities($row4->user_id); ?>" onclick="return confirm('Muabot rata anang para sa rating, okay?');"> Rate   <!--<i class="fa fa-pencil"></i>--></a>
 </td>
                     </tr>
-                    <?php 
-                    } 
-                  }
-                }
-                   if(($row4->team) != ($my_id)){
-                    if(($row4->member_id) != ($my_id)){
-              ?>
-                    <tr>
-                      <td><?php echo htmlentities($row4->user_id);?></td>
-                      <td><?php echo htmlentities($row4->name);?></td>
-                      <td><?php echo htmlentities($row4->section);?></td>
-                      <td><?php echo htmlentities($row4->role);?></td>
-                                         
-<td>
-<a href="peerRating.php?add=<?php echo htmlentities($row4->user_id); ?>" onclick="return confirm('Muabot rata anang para sa rating, okay?');"> Rate <!--<i class="fa fa-pencil"></i>--></a>
-</td>
-                    </tr>
-                <?php 
-                }
-              }
-              /*if(($row4->team) == 0){
-                if(($row4->member_id) != ($my_id)){ */
+<?php  
+          //  }
 ?>
 
-                    <?php  
-            /*} }*/ }
-                ?>
-                                       
-                    <!--<?php $cnt //  =$cnt+1; }} ?> -->
                     
                   </tbody>
                 </table>

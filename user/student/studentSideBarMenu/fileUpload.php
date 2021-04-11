@@ -28,6 +28,26 @@
   <!-- Admin Stye -->
   <link rel="stylesheet" href="../student_css/style.css">
 
+  <style type="text/css">
+    .form_upload {
+      width: 30%;
+      margin: 100px auto;
+      padding: 30px;
+      border: 1px solid #555;
+    }
+    .input_upload {
+      width: 100%;
+      border: 1px solid #f1e1e1;
+      display: block;
+      padding: 5px 10px;
+    }
+    .button_upload {
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -80,13 +100,9 @@
     
       <ul class="cd-side__list js-cd-side__list">
 
-      	<li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
-          <!--<a href="">Feature 1</a>-->
-          <a href="membersAssignment.php">Members Assignment</a>
-        </li>
       	<li style="background-color:#4169E1" class="cd-side__sub-item cd-side__item cd-side__item--has-children">
 
-          <a href="fileUpload.php">File Upload</a>
+          <a href="fileUpload.php">Thesis Proposal</a>
 
         </li>
         <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
@@ -130,7 +146,7 @@
 
             <!---------------->
             <div class="panel panel-default">
-              <div class="panel-heading">List Users</div>
+              <!--<div class="panel-heading">List Users</div>
 
                 <table class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                   <thead>
@@ -151,9 +167,63 @@
                     </tr>
                   </tbody>
                 </table>
-            </div>
+            </div>-->
             <!---------------->
-            
+    <!------------------------------------------------------------->
+    <?php //include 'filesLogic.php'; 
+
+      $conn = mysqli_connect('localhost', 'root', '', 'tmsdup_previous');
+
+      $sql = "SELECT * FROM thesis_documents_tbl";
+      $result = mysqli_query($conn, $sql);
+
+      $files = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+      // Uploads files
+      if (isset($_POST['save'])) { // if save button on the form is clicked
+          // name of the uploaded file
+          $filename = $_FILES['myfile']['name'];
+
+          // destination of the file on the server
+          $destination = '../../../fileStorage/uploads/' . $filename;
+
+          // get the file extension
+          $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+          // the physical file on a temporary uploads directory on the server
+          $file = $_FILES['myfile']['tmp_name'];
+          $size = $_FILES['myfile']['size'];
+
+
+          if (!in_array($extension, ['zip', 'pdf', 'docx', 'PNG', 'png','JPG','jpg'])) {
+              echo "You file extension must be .zip, .pdf or .docx";
+          } elseif ($_FILES['myfile']['size'] > 1000000000000000) { // file size
+              echo "File too large!";
+          } else {
+              // move the uploaded (temporary) file to the specified destination
+              if (move_uploaded_file($file, $destination)) {
+                  //$sql = "INSERT INTO files (name, size, downloads) VALUES ('$filename', $size, 0)";
+                  $sql = "INSERT INTO thesis_documents_tbl (thesis_id,name) VALUES (1,'$filename')";
+
+                  if (mysqli_query($conn, $sql)) {
+                      echo "File uploaded successfully";
+                  }
+              } else {
+                  echo "Failed to upload file.";
+              }
+          }
+      }
+
+    ?>
+
+        <form class="form_upload" action="fileUpload.php" method="post" enctype="multipart/form-data" >
+          <h3>Upload File</h3>
+          <input class="input_upload" type="file" name="myfile"> <br>
+          <button class="button_upload" type="submit" name="save">upload</button>
+        </form>
+
+    <!------------------------------------------------------------->
+         
           </div>
         </div>
       </div>
@@ -177,3 +247,4 @@
 
 </body>
 </html>
+

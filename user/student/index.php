@@ -84,10 +84,6 @@
       <ul class="cd-side__list js-cd-side__list">
 
         <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
-          <!--<a href="">Feature 1</a>-->
-          <a href="studentSideBarMenu/membersAssignment.php">Members Assignment</a>
-        </li>
-        <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
 
           <a href="studentSideBarMenu/fileUpload.php">File Upload</a>
 
@@ -176,10 +172,9 @@ $rowcount = mysqli_num_rows($records);
                         <div class="stat-panel text-center">
 
 <?php 
-//$sql ="SELECT id from users where role = 2";
-$sql ="SELECT team_id from group_tbl";
+$sql ="SELECT group_id from group_tbl";
 $records = mysqli_query($conn, $sql);
-$rowcount = mysqli_num_rows($records);
+$rowcount = mysqli_num_rows($records); 
 ?>
                           <div class="stat-panel-number h1 "><?php echo $rowcount; ?></div>
                           <div class="stat-panel-title text-uppercase">Total Thesis Groups</div>

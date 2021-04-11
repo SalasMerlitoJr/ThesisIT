@@ -21,6 +21,30 @@
   <!-- Admin Stye -->
   <link rel="stylesheet" href="../faculty_css/style.css">
 
+  <link rel="stylesheet" href="../faculty_css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../faculty_css/awesome-bootstrap-checkbox.css">
+
+  <style type="text/css">
+    .form_upload {
+      width: 30%;
+      margin: 100px auto;
+      padding: 30px;
+      border: 1px solid #555;
+    }
+    .input_upload {
+      width: 100%;
+      border: 1px solid #f1e1e1;
+      display: block;
+      padding: 5px 10px;
+    }
+    .button_upload {
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+
+
 </head>
 
 <body>
@@ -127,7 +151,62 @@
           <div class="col-md-12">
 
             <center><h2 class="page-title">File Upload Page</h2></center>
-            
+
+             <!------------------------------------------------------------->
+    <?php //include 'filesLogic.php'; 
+
+      $conn = mysqli_connect('localhost', 'root', '', 'tmsdup_previous');
+
+      $sql = "SELECT * FROM thesis_documents_tbl";
+      $result = mysqli_query($conn, $sql);
+
+      $files = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+      // Uploads files
+      if (isset($_POST['save'])) { // if save button on the form is clicked
+          // name of the uploaded file
+          $filename = $_FILES['myfile']['name'];
+
+          // destination of the file on the server
+          $destination = '../../../fileStorage/uploads/' . $filename;
+
+          // get the file extension
+          $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+          // the physical file on a temporary uploads directory on the server
+          $file = $_FILES['myfile']['tmp_name'];
+          $size = $_FILES['myfile']['size'];
+
+
+          if (!in_array($extension, ['zip', 'pdf', 'docx', 'PNG', 'png','JPG','jpg'])) {
+              echo "You file extension must be .zip, .pdf or .docx";
+          } elseif ($_FILES['myfile']['size'] > 1000000000000000) { // file size
+              echo "File too large!";
+          } else {
+              // move the uploaded (temporary) file to the specified destination
+              if (move_uploaded_file($file, $destination)) {
+                  //$sql = "INSERT INTO files (name, size, downloads) VALUES ('$filename', $size, 0)";
+                  $sql = "INSERT INTO thesis_documents_tbl (thesis_id,name) VALUES (1,'$filename')";
+
+                  if (mysqli_query($conn, $sql)) {
+                      echo "File uploaded successfully";
+                  }
+              } else {
+                  echo "Failed to upload file.";
+              }
+          }
+      }
+
+    ?>
+
+        <form class="form_upload" action="Ad_fileUpload.php" method="post" enctype="multipart/form-data" >
+          <h3>Upload File</h3>
+          <input class="input_upload" type="file" name="myfile"> <br>
+          <button class="button_upload" type="submit" name="save">upload</button>
+        </form>
+
+    <!------------------------------------------------------------->
+
           </div>
         </div>
       </div>

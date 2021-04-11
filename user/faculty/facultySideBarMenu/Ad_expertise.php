@@ -131,16 +131,16 @@
 
             <div class="panel-body">
             <form method="post" class="form-horizontal" enctype="multipart/form-data">
-<?php
+<?php 
   include '../../../includes/connect.php';
   
   if(isset($_POST['setField'])){
     $my_id = $_SESSION["user_id"];
     $fields = $_POST['inputField'];
 
-    $sql3="INSERT into adviser_fields_tbl (adviser,field) values ('" . $my_id . "','" . $fields . "')";
+    $sql3="INSERT into adviser_fields_tbl (adviser_id,field) values ('" . $my_id . "','" . $fields . "')";
     $stmt3 = $conn->prepare($sql3);
-    $stmt3->execute();
+    $stmt3->execute(); 
 
     /*$sql="UPDATE team_members_tbl SET gro_mem_status = 1 where  team = '$my_id'" ;
     $stmt = $conn->prepare($sql);
@@ -165,7 +165,7 @@
             <center><h1>Your Fields of Expertise</h1></center>
 <?php 
 $my_id = $_SESSION["user_id"];
-$sql = "SELECT * from adviser_fields_tbl where adviser = '$my_id' ";
+$sql = "SELECT * from adviser_fields_tbl where adviser_id = '$my_id' ";
   $records = mysqli_query($conn, $sql);
   while($row = mysqli_fetch_object($records)) {
 ?>  

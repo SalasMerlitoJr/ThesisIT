@@ -80,10 +80,6 @@
       <ul class="cd-side__list js-cd-side__list">
 
       	<li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
-          <!--<a href="">Feature 1</a>-->
-          <a href="membersAssignment.php">Members Assignment</a>
-        </li>
-      	<li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
 
           <a href="fileUpload.php">File Upload</a>
 

@@ -21,6 +21,9 @@
   <!-- Admin Stye -->
   <link rel="stylesheet" href="../faculty_css/style.css">
 
+  <link rel="stylesheet" href="../faculty_css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../faculty_css/awesome-bootstrap-checkbox.css">
+
 </head>
 
 <body>
@@ -126,7 +129,55 @@
         <div class="row">
           <div class="col-md-12">
 
-            <center><h2 class="page-title">Defense Schedule Page</h2></center>
+            <center><h2 class="page-title"><strong>ADVISER </strong>Defense Schedule Page</h2></center>
+
+            <!------------------------------------->
+            <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th><strong>ID</strong></th>
+                      <th><strong>Adviser Name</strong></th>
+                      <th><strong>Group Name</strong></th>
+                      <th><strong>Thesis Phase</strong></th>
+                      <th><strong>Date</strong></th>
+                      <th><strong>Time Start</strong></th>
+                      <th><strong>Time End</strong></th>
+                      <th><strong>Venue</strong></th>
+                      <!--<th>Action</th>-->
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+<?php
+    include '../../../includes/connect.php';
+
+    //$sql4 = "SELECT * from schedules_tbl";
+    $sql4 = "SELECT user_id,name,group_id,group_name,phase_id,phase_name,schedule_id,group_sc,phase_sc,date,time_start,time_end,venue from group_tbl INNER JOIN users_tbl on user_id = adviser INNER JOIN schedules_tbl on group_id = group_sc INNER JOIN phases_tbl on phase_id = phase_sc";
+    $records4 = mysqli_query($conn, $sql4);
+    while  ($row4 = mysqli_fetch_object($records4)) {
+?>
+      <tr>
+        <td><?php echo htmlentities($row4->schedule_id);?></td>
+        <td><?php echo htmlentities($row4->name);?></td>
+        <td><?php echo htmlentities($row4->group_name);?></td>
+        <td><?php echo htmlentities($row4->phase_name);?></td>
+        <td><?php echo htmlentities($row4->date);?></td>
+        <td><?php echo htmlentities($row4->time_start);?></td>
+        <td><?php echo htmlentities($row4->time_end);?></td>
+        <td><?php echo htmlentities($row4->venue);?></td>
+                                             
+<!--<td>
+<a href="">??</a>
+</td>-->
+                    </tr>
+                  <?php } ?>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+            <!------------------------------------->
             
           </div>
         </div>

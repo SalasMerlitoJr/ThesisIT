@@ -8,4 +8,9 @@ $chss->SessionCheck();
 if (!isset($_SESSION['email']) || $_SESSION['type'] != 'student') {
   header("Location:../../includes/logout.php");
 }
+if ($_SESSION['is_active'] != 0) {
+  echo "<script>alert('Your account was disabled by the chairman')</script>";
+  //header("Location:../../includes/logout.php");  
+  echo "<script>location.href='../../includes/logout.php'</script>";
+}
 ?>

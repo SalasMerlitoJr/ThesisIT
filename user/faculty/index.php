@@ -182,10 +182,9 @@ $rowcount = mysqli_num_rows($records);
                         <div class="stat-panel text-center">
 
 <?php 
-//$sql ="SELECT id from users where role = 2";
-$sql ="SELECT team_id from group_tbl";
+$sql ="SELECT group_id from group_tbl";
 $records = mysqli_query($conn, $sql);
-$rowcount = mysqli_num_rows($records);
+$rowcount = mysqli_num_rows($records); 
 ?>
                           <div class="stat-panel-number h1 "><?php echo $rowcount; ?></div>
                           <div class="stat-panel-title text-uppercase">Total Thesis Groups</div>

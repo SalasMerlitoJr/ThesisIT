@@ -21,6 +21,10 @@
   <!-- Admin Stye -->
   <link rel="stylesheet" href="../faculty_css/style.css">
 
+  <link rel="stylesheet" href="../faculty_css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../faculty_css/awesome-bootstrap-checkbox.css">
+
+
 </head>
 
 <body>
@@ -117,8 +121,55 @@
           </ul>
         </li>
       </ul>
-
     </nav>
+
+    <?php 
+
+// Downloads files
+$conn = mysqli_connect('localhost', 'root', '', 'tmsdup_previous');
+
+//$sql = "SELECT * FROM thesis_documents_tbl";
+$sql = "SELECT * FROM thesis_documents_tbl";
+
+$result = mysqli_query($conn, $sql);
+
+$files = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+/*
+if (isset($_GET['file_id'])) {
+    $id = $_GET['file_id'];
+
+    // fetch file to download from database
+    $sql = "SELECT * FROM thesis_documents_tbl WHERE thesis_document_id = $id";
+    $result = mysqli_query($conn, $sql);
+
+    $file = mysqli_fetch_assoc($result);
+    //$filepath = '../../../fileStorage/uploads/' . $file['name'];
+    $filepath = 'uploads/' . $file['name'];
+
+
+    if (file_exists($filepath)) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . basename($filepath));
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        //header('Content-Length: ' . filesize('../../../fileStorage/uploads/' . $file['name']));
+        header('Content-Length: ' . filesize('uploads/' . $file['name']));
+        //readfile('../../../fileStorage/uploads/' . $file['name']);
+        readfile('uploads/' . $file['name']);
+
+        // Now update downloads count
+        $newCount = $file['downloads'] + 1;
+        $updateQuery = "UPDATE thesis_documents_tbl SET thesis_document_status=$newCount WHERE thesis_document_id=$id";
+        mysqli_query($conn, $updateQuery);
+        exit;
+    }
+
+}
+*/
+ ?>
 
     <div class="content-wrapper">
       <div class="container-fluid">
@@ -126,7 +177,29 @@
         <div class="row">
           <div class="col-md-12">
 
-            <center><h2 class="page-title">Advisees Document Page</h2></center>
+            <center><h2 class="page-title">Advisee Document Page</h2></center>
+        <div class="panel-heading">Advisee Documents</div>
+          <div class="panel-body">
+            <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+            <thead>
+              <th>ID</th>
+              <th>Filename</th>
+              <!--<th>size (in mb)</th>
+              <th>Downloads</th>-->
+              <th>Action</th>
+          </thead>
+          <tbody>
+            <?php foreach ($files as $file): ?>
+              <tr>
+                <td><?php echo $file['thesis_document_id']; ?></td>
+                <td><?php echo $file['name']; ?></td>
+                <!--<td><?php //echo floor($file['size'] / 1000) . ' KB'; ?></td>
+                <td><?php // echo $file['downloads']; ?></td>-->
+                <td><a href="../../../fileStorage/downloads.php?file_id=<?php echo $file['thesis_document_id'] ?>">Download</a></td>
+              </tr>
+            <?php endforeach;?>  
+            </tbody>
+            </table> 
             
           </div>
         </div>

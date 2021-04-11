@@ -20,10 +20,16 @@
           <div class="card-body">
             <h5 class="card-title text-center">Sign In</h5>
             <form class="form-signin" action="includes/login.php" method="POST">
+
               <div class="form-label-group">
                 <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                 <label for="inputEmail">Email address</label>
               </div>
+
+              <!--<div class="form-label-group">
+                <input name="email" type="email" id="inputEmailorUsername" class="form-control" placeholder="Email address or Username" required autofocus>
+                <label for="inputEmail">Email address || Username</label>
+              </div>-->
 
               <div class="form-label-group">
                 <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
