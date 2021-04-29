@@ -2,8 +2,8 @@
 $dbhost = "localhost"; //Host
 $dbuser = "root"; //Database user
 $dbpass = ""; //Database password
-//$dbname = "tmsdup"; //Database name 
-$dbname = "tmsdup_previous";
+$dbname = "tmsdup"; //Database name 
+//$dbname = "tmsdup_previous";
 
 $conn = mysqli_connect("$dbhost", "$dbuser", "$dbpass", "$dbname"); //Connection
 
@@ -12,3 +12,5 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 ?>
+
+

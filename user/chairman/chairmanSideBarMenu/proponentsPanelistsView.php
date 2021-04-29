@@ -1,4 +1,5 @@
-<?php include 'chairman_SESSION.php'; ?> 
+<?php include 'chairman_SESSION.php'; 
+?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -153,7 +154,7 @@
 <?php  } ?>
 <!-------------------------->
 <form method="POST" action="viewTeamswithPanelist.php">   
-    <button type="submit" class="edit_btn" style="float: right">Proponents => Panelists</button> 
+    <button type="submit" class="edit_btn" style="float: right">List of Groups</button> 
 </form>
 <!-------------------------->  
 
@@ -180,8 +181,16 @@
 <?php
     include '../../../includes/connect.php';
 
-    $selected_id = $_GET['viewproponents'];
-    $sql4 = "SELECT group_id,group_name,group_ad,panelist_id from group_tbl INNER JOIN thesis_panels_tbl on group_id = group_ad where panelist_id = '$selected_id'  ";
+    //$selected_id = $_GET['viewproponents'];
+    //$sql4 = "SELECT a.group_id,group_name,thesis,panelist_id,thesis_id,b.group_id,thesis_title from group_tbl a INNER JOIN thesis_tbl b on a.group_id = b.group_id INNER JOIN thesis_panels_tbl on thesis_id = thesis where panelist_id = '$selected_id' ";
+    if(isset($_GET['delete'])){    
+      $id = $_GET['delete'];              
+      $sql="DELETE from thesis_panels_tbl where thesis_panel_id = '$id' ";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+    }
+
+    $sql4 = "SELECT b.group_id,group_name,adviser,thesis_panel_id,c.group_id,panelist_id from group_tbl b INNER JOIN thesis_panels_tbl c on b.group_id = c.group_id where panelist_id = '$selected_id' ";
 
     $records4 = mysqli_query($conn, $sql4);
     while  ($row4 = mysqli_fetch_object($records4)) {
@@ -191,7 +200,7 @@
         <td><?php echo htmlentities($row4->group_name);?></td>
                                              
 <td>
-<a href="" >remove</a>
+<a href="proponentsPanelistsView.php?delete=<?php echo htmlentities($row4->thesis_panel_id);  ?>" onclick="return confirm('Do you want to DELETE this?');"> remove</a>
 </td>
                     </tr>
                   <?php } ?>

@@ -194,7 +194,7 @@
 
 <!-------------------------->
 
-<center><form method="post"> \
+<center><form method="post"> 
 
 <?php 
 
@@ -235,7 +235,7 @@
 <option value="NULL" selected >---Select Phase--</option>
   <?php
     
-   $sql2 = "SELECT * FROM phases_tbl"; 
+   $sql2 = "SELECT * FROM phases_tbl where phase_id != 4 "; 
     $data = mysqli_query($conn, $sql2);
     while  ($row = mysqli_fetch_object($data)) { 
       ?>

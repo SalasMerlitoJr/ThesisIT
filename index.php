@@ -9,6 +9,7 @@
   <title>Multi-user login with PHP</title>
   <link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/background.css">
 </head>
 
 <body>
@@ -25,11 +26,6 @@
                 <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                 <label for="inputEmail">Email address</label>
               </div>
-
-              <!--<div class="form-label-group">
-                <input name="email" type="email" id="inputEmailorUsername" class="form-control" placeholder="Email address or Username" required autofocus>
-                <label for="inputEmail">Email address || Username</label>
-              </div>-->
 
               <div class="form-label-group">
                 <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>

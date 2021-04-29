@@ -150,11 +150,13 @@
                   <tbody>
 <?php
     include '../../../includes/connect.php';
+    $my_id = $_SESSION['user_id'];
 
     //$sql4 = "SELECT * from schedules_tbl";
-    $sql4 = "SELECT user_id,name,group_id,group_name,phase_id,phase_name,schedule_id,group_sc,phase_sc,date,time_start,time_end,venue from group_tbl INNER JOIN users_tbl on user_id = adviser INNER JOIN schedules_tbl on group_id = group_sc INNER JOIN phases_tbl on phase_id = phase_sc";
+    $sql4 = "SELECT user_id,name,group_id,group_name,phase_id,phase_name,schedule_id,group_sc,adviser,phase_sc,date,time_start,time_end,venue from group_tbl INNER JOIN users_tbl on user_id = adviser INNER JOIN schedules_tbl on group_id = group_sc INNER JOIN phases_tbl on phase_id = phase_sc";
     $records4 = mysqli_query($conn, $sql4);
     while  ($row4 = mysqli_fetch_object($records4)) {
+      if(($row4->adviser) == ($my_id)){
 ?>
       <tr>
         <td><?php echo htmlentities($row4->schedule_id);?></td>
@@ -170,7 +172,7 @@
 <a href="">??</a>
 </td>-->
                     </tr>
-                  <?php } ?>
+                  <?php } }?>
                     
                   </tbody>
                 </table>

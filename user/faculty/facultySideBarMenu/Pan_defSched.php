@@ -152,7 +152,11 @@
 
     //$sql4 = "SELECT * from schedules_tbl";
     //$sql4 = "SELECT group_id,group_name,phase_id,phase_name,schedule_id,group_sc,phase_sc,date,time_start,time_end,venue from group_tbl INNER JOIN schedules_tbl on group_id = group_sc INNER JOIN phases_tbl on phase_id = phase_sc";
-    $sql4 = "SELECT user_id,name,group_id,group_name,phase_id,phase_name,schedule_id,group_sc,phase_sc,date,time_start,time_end,venue from group_tbl INNER JOIN users_tbl on user_id = adviser INNER JOIN schedules_tbl on group_id = group_sc INNER JOIN phases_tbl on phase_id = phase_sc";
+
+    //$sql4 = "SELECT user_id,name,group_id,group_name,phase_id,phase_name,schedule_id,group_sc,phase_sc,date,time_start,time_end,venue from group_tbl INNER JOIN users_tbl on user_id = adviser INNER JOIN schedules_tbl on group_id = group_sc INNER JOIN phases_tbl on phase_id = phase_sc"; //old join
+
+    $sql4 = "SELECT user_id,name,a.group_id,group_name,phase_id,phase_name,schedule_id,group_sc,phase_sc,date,time_start,time_end,venue,b.group_id,panelist_id from group_tbl a INNER JOIN users_tbl on user_id = adviser INNER JOIN schedules_tbl on a.group_id = group_sc INNER JOIN phases_tbl on phase_id = phase_sc INNER JOIN thesis_panels_tbl b on a.group_id = b.group_id";
+
     $records4 = mysqli_query($conn, $sql4);
     while  ($row4 = mysqli_fetch_object($records4)) {
 ?>

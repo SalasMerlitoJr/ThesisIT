@@ -155,7 +155,9 @@
              <!------------------------------------------------------------->
     <?php //include 'filesLogic.php'; 
 
-      $conn = mysqli_connect('localhost', 'root', '', 'tmsdup_previous');
+      //$conn = mysqli_connect('localhost', 'root', '', 'tmsdup_previous');
+
+      $conn = mysqli_connect('localhost', 'root', '', 'tmsdup');
 
       $sql = "SELECT * FROM thesis_documents_tbl";
       $result = mysqli_query($conn, $sql);
@@ -202,7 +204,7 @@
         <form class="form_upload" action="Ad_fileUpload.php" method="post" enctype="multipart/form-data" >
           <h3>Upload File</h3>
           <input class="input_upload" type="file" name="myfile"> <br>
-          <button class="button_upload" type="submit" name="save">upload</button>
+          <button class="button_upload" type="submit" name="save">Upload</button>
         </form>
 
     <!------------------------------------------------------------->

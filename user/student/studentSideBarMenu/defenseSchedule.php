@@ -6,11 +6,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
-  <!--<meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="theme-color" content="#3e454c">-->
 
   <script>document.getElementsByTagName("html")[0].className += " js";</script>
   <link rel="stylesheet" href="../student_assets/css/style.css">
@@ -35,14 +30,14 @@
 <body>
   <header class="cd-main-header js-cd-main-header">
     <div class="cd-logo-wrapper">
-      <!--<a href="#0" class="cd-logo"><img src="assets/img/cd-logo.svg" alt="Logo"></a>-->
+
       <div class="cd-logo"><img src="../student_assets/img/ustp_logo.png" alt="Logo" class="ustp_logo"></div>
     </div>
     
     <!--<div class="cd-search js-cd-search">-->
     <div class="js-cd-search">
       <form>
-        <!--<center><h3 class="thesis-title" style="color:white; margin-top: 1em">BSIT-USTP Thesis Management System</h3></center>-->
+
         <center><h3 class="thesis-title">USTP-BSIT Thesis Management System</h3></center>
       </form>
     </div>
@@ -84,7 +79,7 @@
 
       	<li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
 
-          <a href="fileUpload.php">File Upload</a>
+          <a href="fileUpload.php">Thesis Proposal</a>
 
         </li>
         <li style="background-color:#4169E1" class="cd-side__sub-item cd-side__item cd-side__item--has-children">
@@ -136,36 +131,41 @@
                 <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>Team Name</th>
-                      <th>Adviser</th>
-                      <th>Panel</th>
-                      <th>Date</th> 
-                      <th>Time Start</th>
-                      <th>Time End</th>
-                      <th>Venue</th>
+                       <th><strong>ID</strong></th>
+                      <th><strong>Adviser Name</strong></th>
+                      <th><strong>Group Name</strong></th>
+                      <th><strong>Thesis Phase</strong></th>
+                      <th><strong>Date</strong></th>
+                      <th><strong>Time Start</strong></th>
+                      <th><strong>Time End</strong></th>
+                      <th><strong>Venue</strong></th>
                     </tr>
                   </thead>
                   
                   <tbody>
-                    <tr>
-                      <!--<td><?php // echo htmlentities($row4->group_members_id);?></td>-->
-                      <td>?</td>
-                      <td>?</td>
-                      <td>?</td>
-                      <td>?</td>
-                      <td>?</td>
-                      <td>?</td>
-                      <td>?</td>
+    <?php
+    include '../../../includes/connect.php';
 
-                      
-      
-                      
-<td>
-?
-</td>
+    //$sql4 = "SELECT * from schedules_tbl";
+    $my_id = $_SESSION['user_id'];
+    $my_group = $_SESSION['user_status'];
+    $sql4 = "SELECT user_id,user_status,name,group_id,group_name,phase_id,phase_name,schedule_id,group_sc,phase_sc,date,time_start,time_end,venue from group_tbl INNER JOIN schedules_tbl on group_id = group_sc INNER JOIN phases_tbl on phase_id = phase_sc INNER JOIN users_tbl on user_id = adviser order by date asc ";
+    $records4 = mysqli_query($conn, $sql4);
+    while  ($row4 = mysqli_fetch_object($records4)) {
+      if(($row4->group_id) == ($my_group)){
+    ?>
+                    <tr>
+                    <td><?php echo htmlentities($row4->schedule_id);?></td>
+              <td><?php echo htmlentities($row4->name);?></td>
+              <td><?php echo htmlentities($row4->group_name);?></td>
+              <td><?php echo htmlentities($row4->phase_name);?></td>
+              <td><?php echo htmlentities($row4->date);?></td>
+              <td><?php echo htmlentities($row4->time_start);?></td>
+              <td><?php echo htmlentities($row4->time_end);?></td>
+              <td><?php echo htmlentities($row4->venue);?></td>
+                     
                     </tr>
-                    
+                    <?php }} ?>
                   </tbody>
                 </table>
               </div>

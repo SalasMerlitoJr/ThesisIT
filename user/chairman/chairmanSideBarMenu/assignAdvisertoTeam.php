@@ -198,9 +198,9 @@
       $stmt11 = $conn->prepare($sql11);
       $stmt11->execute();
 
-      $sql12="UPDATE users_tbl SET user_status = '$selected_id' where user_id = '$adviser' ";
+      /*$sql12="UPDATE users_tbl SET user_status = '$selected_id' where user_id = '$adviser' ";
       $stmt12 = $conn->prepare($sql12);
-      $stmt12->execute();
+      $stmt12->execute();*/
     } 
     
     $sql2 = "SELECT * FROM users_tbl where type = 'faculty' "; // if status != 0 dili na ma display ang name sa instructor
@@ -213,10 +213,26 @@
 <button type="submit" name="assign" value="">Assign</button>
 </form></center>
 
+
 <!-------------------------->
-<form method="POST" action="advisoryAssignment.php">   
+<!--<form method="POST" action="advisoryAssignment.php"> -->  
+<form method="POST" action="viewTeamswithAdviser.php">   
     <center><button type="submit" class="edit_btn" value="">Back</button></center> 
 </form>
+<!-------------------------->
+
+<!-------------------------->
+<?php 
+  include '../../../includes/connect.php';
+  
+  $selected_id = $_GET['assignAdviser'];
+
+  $sql = "SELECT group_id,group_name,adviser,user_id,name,user_status from group_tbl INNER JOIN users_tbl on adviser = user_id where group_id = '$selected_id' ";
+  $records = mysqli_query($conn, $sql);
+  while  ($row = mysqli_fetch_object($records)) { 
+?>
+  <h3><center><?php echo htmlentities($row->name);?></center></h3>
+<?php } ?>
 <!-------------------------->
           </div>
         </div>

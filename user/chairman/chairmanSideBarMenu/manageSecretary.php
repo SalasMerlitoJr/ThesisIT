@@ -62,6 +62,21 @@ if(isset($_GET['delete'])){
         -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
         box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     }
+     .edit_btn {
+      text-decoration: none;
+      padding: 2px 5px;
+      background: #2E8B57;
+      color: white;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+    .del_btn {
+        text-decoration: none;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 3px;
+        background: #800000;
+    }
   </style>
 
 </head>
@@ -260,10 +275,10 @@ foreach($results as $result)
                       
 <td>
 <!--<a href="edit-user.php?edit=<?php // echo $result->id;?>" onclick="return confirm('Do you want to Edit');">&nbsp; <i class="fa fa-pencil"></i></a>&nbsp;&nbsp;-->
-<a href="manageStudents_Styling/editRecords.php?edit=<?php echo htmlentities($row->user_id); ?>" onclick="return confirm('Do you want to EDIT this?');"> edit - <!--<i class="fa fa-pencil"></i>--></a>
-
+<a href="manageStudents_Styling/editRecords.php?edit=<?php echo htmlentities($row->user_id); ?>" onclick="return confirm('Do you want to EDIT this?');"class="edit_btn"> Edit <!--<i class="fa fa-pencil"></i>--></a>
+<a>|    |</a>
 <!--<a href="deleteStudents.php" onclick="return confirm('Do you want to Delete');"> delete --><!--<i class="fa fa-trash"></i>--> <!--</a>-->
-<a href="manageSecretary.php?delete=<?php echo htmlentities($row->user_id);  ?>" onclick="return confirm('Do you want to DELETE this?');"> delete</a>
+<a href="manageSecretary.php?delete=<?php echo htmlentities($row->user_id);  ?>" onclick="return confirm('Do you want to REMOVE this?');"class="del_btn"> Remove </a>
 </td>
                     </tr>
                     <?php } ?>

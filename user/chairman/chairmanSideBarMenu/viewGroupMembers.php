@@ -45,6 +45,13 @@
       border-radius: 3px;
       font-size: 1.3em;
   }
+  .del_btn {
+        text-decoration: none;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 3px;
+        background: #800000;
+    }
 </style>
 
 </head>
@@ -195,12 +202,23 @@
 <?php 
   include '../../../includes/connect.php';
   $group_members = $_GET['viewMembers'];
-  if(isset($_POST['createGroup'])){
+
+  /*if(isset($_POST['createGroup'])){
     $group_name = $_POST['groupName'];
     $sql = "INSERT into group_tbl (name) values ('" . $group_name . "')";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
-  }
+  }*/
+   if(isset($_GET['deleteMember'])){    
+      $id = $_GET['deleteMember'];              
+      $sql="DELETE from group_members_tbl where member_id = '$id' ";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+
+      $sql1="UPDATE users_tbl SET user_status = 0 where user_id = '$id'";
+      $stmt1 = $conn->prepare($sql1);
+      $stmt1->execute();
+    }
 
     $sql1 = "SELECT user_id,name,user_status,group_id,group_name from users_tbl inner join group_tbl on group_id = user_status where user_status = '$group_members' ";
     $data1 = mysqli_query($conn, $sql1);
@@ -209,7 +227,7 @@
     	<td><?php echo htmlentities($row1->user_id);?></td>
     	<td><?php echo htmlentities($row1->name);?></td>                  
 		<td>
-		<a href="gg.php?remove=<?php //echo htmlentities($row->user_id); ?>">remove</a>
+		<a href="viewGroupMembers.php?deleteMember=<?php echo htmlentities($row1->user_id); ?>" onclick="return confirm('Do you want to remove this?');"class="del_btn">Remove</a>
 		</td>
 	</tr>
 

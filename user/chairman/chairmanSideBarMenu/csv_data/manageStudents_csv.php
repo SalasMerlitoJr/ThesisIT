@@ -42,7 +42,7 @@ if(isset($_GET['delete'])){
     $del_prompt_messasge="Deleted Successfully";
 }
 
-//--------------------------------------------------
+//------------------------------------------------------------------------
 if(isset($_REQUEST['disable'])){
   $selected_id=$_GET['disable'];
   //$memstatus=1;
@@ -59,8 +59,68 @@ if(isset($_REQUEST['enable'])){
   $query->execute();
   $msg="Changes Sucessfully";
 }
-//--------------------------------------------------
+//------------------------------------------------------------------------
 ?>
+
+ <?php  
+ //ob_start();
+ function fetch_data()  
+ {  
+      $output = '';  
+      $connect = mysqli_connect("localhost", "root", "", "tmsdup");  
+      $sql = "SELECT * FROM users_tbl where type = 'student' ORDER BY user_id ASC";  
+      $result = mysqli_query($connect, $sql);  
+      while($row = mysqli_fetch_array($result))  
+      {       
+      $output .= '<tr>  
+                          <td>'.$row["user_id"].'</td>  
+                          <td>'.$row["name"].'</td>  
+                          <td>'.$row["email"].'</td>  
+                          <td>'.$row["userpassword"].'</td> 
+                     </tr>  
+                          ';  
+      }  
+      return $output;  
+ }  
+ if(isset($_POST["create_pdf"]))  
+ {    //ob_start();
+      require_once('tcpdf/tcpdf.php');
+
+    
+      $obj_pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);  
+      $obj_pdf->SetCreator(PDF_CREATOR);  
+      $obj_pdf->SetTitle("Export HTML Table data to PDF using TCPDF in PHP");  
+      $obj_pdf->SetHeaderData('', '', PDF_HEADER_TITLE, PDF_HEADER_STRING);  
+      $obj_pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));  
+      $obj_pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
+      $obj_pdf->SetDefaultMonospacedFont('helvetica');  
+      $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER,'10');  
+      $obj_pdf->SetMargins(PDF_MARGIN_LEFT, '2', PDF_MARGIN_RIGHT, '2',PDF_MARGIN_BOTTOM, '10');  
+      $obj_pdf->setPrintHeader(false);  
+      $obj_pdf->setPrintFooter(false);  
+      $obj_pdf->SetAutoPageBreak(TRUE);  
+      $obj_pdf->SetFont('helvetica', '', 6);  
+      $obj_pdf->AddPage();  
+      $content = '';  
+      $content .= '  
+      <h3 align="center">students list </h3><br /><br />  
+      <table border="1" cellspacing="0" cellpadding="5">  
+           <tr>  
+                <th width="15%">ID</th>  
+                <th width="25%">Name</th>  
+                <th width="25%">Email</th>  
+                <th width="35%">Password</th>   
+           </tr>  
+      ';  
+      //ob_start();
+      $content .= fetch_data();  
+      $content .= '</table>';  
+      $obj_pdf->writeHTML($content);
+      ob_end_clean();
+      $obj_pdf->Output('sample.pdf', 'I');  
+ }  
+ ?>  
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -109,6 +169,44 @@ if(isset($_REQUEST['enable'])){
         -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
         box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     }
+    .gede-btn{
+      color: #fff;
+      background: #2d5986;
+
+
+    }
+    .edit_btn {
+      text-decoration: none;
+      padding: 2px 5px;
+      background: #2E8B57;
+      color: white;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+
+    .del_btn {
+        text-decoration: none;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 3px;
+        background: #800000;
+    }
+
+    /*.isActive_btn {
+        text-decoration: none;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 3px;
+        background: #4169E1;
+    }*/
+    .Dectivate_btn {
+        text-decoration: none;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 3px;
+        background: #3d586b;
+    }
+
   </style>
 
 
@@ -239,6 +337,8 @@ if(isset($_REQUEST['enable'])){
         <div class="row">
           <div class="col-md-12">
 
+
+
             <center><h2 class="page-title">Student Management Page</h2></center>
 
             <!------------->
@@ -256,6 +356,11 @@ if(isset($_REQUEST['enable'])){
             </form>
         </div>
     </div>-->
+<!--------------------------------------------------->
+   <form method="post">  
+      <input type="submit" name="create_pdf" class="gede-btn" value="Create PDF" />  
+  </form> 
+<!--------------------------------------------------->    
 <div class="panel panel-default">
   <div class="panel-body">
     <form class="form-horizontal" action="" method="post" name="uploadCSV" enctype="multipart/form-data">
@@ -315,15 +420,15 @@ if(isset($_REQUEST['enable'])){
   
                       
 <td>
-<a href="editRecords.php?edit=<?php echo htmlentities($row->user_id); ?>"> edit </a>
+<a href="editRecords.php?edit=<?php echo htmlentities($row->user_id); ?>" class="edit_btn"> Edit </a>
 <a>|    |</a>
-<a href="manageStudents_csv.php?gg=<?php // echo htmlentities($row->user_id); ?>"> remove </a>
+<a href="manageStudents_csv.php?delete=<?php  echo htmlentities($row->user_id); ?>" class="del_btn"> Remove </a>
 <a>|    |</a>
   <?php if($row->is_active == 1){?>
-    <a href="manageStudents_csv.php?enable=<?php echo htmlentities($row->user_id);?>" onclick="return confirm('Do you really want to activate this account?')">Activate</a> 
+    <a href="manageStudents_csv.php?enable=<?php echo htmlentities($row->user_id);?>" onclick="return confirm('Do you really want to activate this account?')" style="text-decoration: none;padding: 2px 5px;color: white; border-radius: 3px; background: #4169E1;">Activate</a> 
   <?php }
    else {?>
-    <a href="manageStudents_csv.php?disable=<?php echo htmlentities($row->user_id);?>" onclick="return confirm('Do you really want to deactivate this account?')">Deactivate</a>
+    <a href="manageStudents_csv.php?disable=<?php echo htmlentities($row->user_id);?>" onclick="return confirm('Do you really want to deactivate this account?')" class="Dectivate_btn">Deactivate</a> 
   <?php } ?>
 </td>
 <!----------------------->
@@ -365,15 +470,6 @@ if(isset($_REQUEST['enable'])){
       </div>
       <div class="modal-body">
         <form method="post">
-          <!--
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>-->
            <div class="form-group" style="padding-bottom: 20px;">
                   <label for="Name">Name</label>
                     <input type="hidden" name="modal_id"  class="form-control" value="<?php echo $r['user_id']; ?>" />

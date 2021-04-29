@@ -1,5 +1,8 @@
 
-<?php include 'chairman_SESSION.php'; ?> 
+<?php include 'chairman_SESSION.php'; 
+$group_name = "";
+$update = false;
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +48,22 @@
       border-radius: 3px;
       font-size: 1.3em;
   }
+  .del_btn {
+        text-decoration: none;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 3px;
+        background: #800000;
+        font-size: 1.3em;
+    }
+    .Dectivate_btn {
+        text-decoration: none;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 3px;
+        background: #3d586b;
+        font-size: 1.3em;
+    
 </style>
 
 </head>
@@ -189,11 +208,23 @@
   include '../../../includes/connect.php';
   $sql9 = "SELECT * from group_tbl";
 
+
   if(isset($_POST['createGroup'])){
 	    $group_name = $_POST['groupName'];
 	    $sql = "INSERT INTO group_tbl (group_name) values ('" . $group_name . "')";
 	    $stmt = $conn->prepare($sql);
 	    $stmt->execute();
+  }
+
+  if(isset($_POST['editGroupBtn'])){
+      $update = false;
+      $group_id = $_POST['group_id'];
+      $group_name = $_POST['groupName'];
+
+      $sql = "UPDATE group_tbl SET group_name = '$group_name' WHERE group_id= '$group_id' ";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+      
   }
 
   if(isset($_GET['delete'])){
@@ -206,8 +237,17 @@
     $stmt1 = $conn->prepare($sql1);
     $stmt1->execute();
  }
- 
 
+ if (isset($_GET['editGroup'])) {
+    $group_id = $_GET['editGroup'];
+    $update = true;
+    $record = mysqli_query($conn, "SELECT * FROM group_tbl WHERE group_id = $group_id");
+
+    $n = mysqli_fetch_array($record);
+    $group_name = $n['group_name'];
+    //$update = false;
+  }
+ 
     //$sql = "SELECT * from group_tbl";
     $data = mysqli_query($conn, $sql9);
     while  ($row = mysqli_fetch_object($data)) {  ?>
@@ -215,30 +255,27 @@
     	<td><?php echo htmlentities($row->group_id);?></td>
     	<td><?php echo htmlentities($row->group_name);?></td>                  
 		<td>
-		<a href="viewGroupMembers.php?viewMembers=<?php echo htmlentities($row->group_id); ?>">View Vembers</a>
+		<a href="viewGroupMembers.php?viewMembers=<?php echo htmlentities($row->group_id); ?>"class="edit_btn">View Vembers</a>
 		<a>|    |</a>
-		<a href="groupAssignment.php">Add Members</a>
+		<!--<a href="groupAssignment.php">Add Members</a>
+		<a>|    |</a>-->
+		<a href="setGroupName.php?editGroup=<?php echo htmlentities($row->group_id); ?>"class="del_btn">Edit Name</a>
 		<a>|    |</a>
-		<a href="setGroupName.php?editGroup=<?php echo htmlentities($row->group_id); ?>">Edit Name</a>
-		<a>|    |</a>
-		<a href="setGroupName.php?delete=<?php echo htmlentities($row->group_id);  ?>" onclick="return confirm('Do you really want to DISASSEMBLE this team?');"> Remove</a>
+		<a href="setGroupName.php?delete=<?php echo htmlentities($row->group_id);  ?>" onclick="return confirm('Do you really want to DISASSEMBLE this team?');" class="Dectivate_btn"> Remove</a>
 		</td>
 	</tr>
 
     <?php } ?>
 <!-------------->
 	<center><form method="POST">
-<?php 
-  /*include '../../../includes/connect.php';
-  	if(isset($_POST['createGroup'])){
-	    $group_name = $_POST['groupName'];
-	    $sql = "INSERT INTO group_tbl (name) values ('" . $group_name . "')";
-	    $stmt = $conn->prepare($sql);
-	    $stmt->execute();
-	 ?>
-<?php } */?>
-		<input type="text" name="groupName" required="">
-		<button type="submit" class="edit_btn" name="createGroup">Set Group Name</button>
+
+    <input type="hidden" name="group_id" value="<?php echo $group_id; ?>">
+		<input type="text" name="groupName" value="<?php echo $group_name; ?>" required="">
+   <?php if ($update == true){ ?>
+		<button type="submit" class="edit_btn" name="editGroupBtn">Edit Group Name</button>
+    <?php }else if ($update == false){ ?>
+    <button type="submit" class="edit_btn" name="createGroup">Create Group Name</button>
+    <?php } ?>
 	</form></center>
 
 

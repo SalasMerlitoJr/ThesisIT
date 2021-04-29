@@ -90,6 +90,22 @@ if(isset($_GET['delete'])){
         -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
         box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     }
+      .edit_btn {
+      text-decoration: none;
+      padding: 2px 5px;
+      background: #2E8B57;
+      color: white;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+    .del_btn {
+        text-decoration: none;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 3px;
+        background: #800000;
+    }
+
   </style>
 
 </head>
@@ -293,10 +309,11 @@ foreach($results as $result)
                       
 <td>
 <!--<a href="edit-user.php?edit=<?php // echo $result->id;?>" onclick="return confirm('Do you want to Edit');">&nbsp; <i class="fa fa-pencil"></i></a>&nbsp;&nbsp>;-->
-<a href="editRecords.php?edit=<?php echo htmlentities($row->user_id); ?>"> edit </a>
-<a>|   |</a>
+<a href="editRecords.php?edit=<?php echo htmlentities($row->user_id); ?>" class="edit_btn"> Edit </a>
+<a>|    |</a>
 
-<a href="manageFaculty_csv.php?delete=<?php echo htmlentities($row->user_id);  ?>" onclick="return confirm('Do you want to DELETE this?');"> delete</a>
+
+<a href="manageFaculty_csv.php?delete=<?php echo htmlentities($row->user_id);  ?>" onclick="return confirm('Do you want to REMOVE this?');" class="del_btn"> Remove</a>
 <!--<a>|   |</a>
 <a href="setMaximumTeamtoAdviser.php?setMaximumTeam=<?php //echo htmlentities($row->user_id);  ?>" onclick="return confirm('Do you want to SET maximum team to this faculty?');"> set</a>-->
 

@@ -5,12 +5,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
-  <!--<meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="theme-color" content="#3e454c">-->
 
   <script>document.getElementsByTagName("html")[0].className += " js";</script>
   <link rel="stylesheet" href="../chairman_assets/css/style.css">
@@ -35,12 +29,20 @@
   .edit_btn{
       text-decoration: none;
       padding: 2px 5px;
-      /*background: #2E8B57;*/
+      background: #2E8B57;
       background: #4169E1;
       color: white;
       border-radius: 3px;
       font-size: 1.3em;
   }
+   .del_btn {
+        text-decoration: none;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 3px;
+        background: #800000;
+        font-size: 1.3em;
+    }
 </style>
 
 </head>
@@ -180,28 +182,34 @@
             <center><h2 class="page-title">Panel Assignment Page</h2></center>
 <!-------------------------->
 <form method="POST" action="proponentsPanelists.php">   
-    <button type="submit" class="edit_btn" style="margin-left: 5px;float: right">List of Panels</button> 
+    <button type="submit" class="edit_btn">List of Panelists</button> 
 </form>
 <!-------------------------->  
 
 <!-------------------------->
+<!--
 <form method="POST" action="">   
     <button type="submit" class="edit_btn" style="float: right">?</button> 
 </form>
+-->
 <!-------------------------->  
 
 
             
 <!-------------------------->
+<!--
 <form method="POST" action="viewTeamswithPanelist.php" style="margin-right: 5px;float: left">   
     <button type="submit" class="edit_btn" >List of Groups</button> 
 </form>
+-->
 <!-------------------------->   
 
 <!-------------------------->
+<!--
 <form method="POST" action="">   
     <button type="submit" class="edit_btn" >?</button> 
 </form>
+-->
 <!--------------------------> 
 
 
@@ -216,6 +224,7 @@
                       <th>#</th>
                       <th>Group Name</th>
                       <th><strong>Adviser</strong></th>
+                      <!--<th><strong>Title</strong></th>-->
                       <th>Action</th> 
                     </tr>
                   </thead>
@@ -224,8 +233,18 @@
 <?php
     include '../../../includes/connect.php';
 
+    if(isset($_GET['delete'])){    
+      $id = $_GET['delete'];              
+      $sql="DELETE from thesis_panels_tbl where thesis_panel_id = '$id' ";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+    }
+
    //$sql4 = "SELECT * from group_tbl";
-    $sql4 = "SELECT name,group_id,group_name,adviser from users_tbl inner join group_tbl on user_id = adviser ";
+
+    //$sql4 = "SELECT name,a.group_id,group_name,adviser,thesis_id,b.group_id,thesis_title from users_tbl inner join group_tbl a on user_id = adviser inner join thesis_tbl b on a.group_id = b.group_id "; //dependent on an existing thesis title
+
+    $sql4 = "SELECT name,group_id,group_name,adviser from users_tbl inner join group_tbl on user_id = adviser "; //dependent on an existing group
     $records4 = mysqli_query($conn, $sql4);
     while  ($row4 = mysqli_fetch_object($records4)) {
 ?>
@@ -233,15 +252,17 @@
         <td><?php echo htmlentities($row4->group_id);?></td>
         <td><?php echo htmlentities($row4->group_name);?></td>
         <td><?php echo htmlentities($row4->name);?></td>
+        <!--<td><?php //echo htmlentities($row4->thesis_title);?></td>-->
                                              
 <td>
-<a href="panelAssigntoTeam.php?assignPanel=<?php echo htmlentities($row4->group_id); ?>" > Assign <strong>Panelist</strong></a>
-<!--<a>|   |</a>
-<a onclick="return confirm('Do you want to delete this team proposal?');">Remove</a>-->
+<a href="panelAssigntoTeam.php?assignPanel=<?php echo htmlentities($row4->group_id); ?>" class="edit_btn"> Assign Panelist</a>
+<!--<a href="panelAssigntoTeam.php?assignPanel=<?php //echo htmlentities($row4->thesis_id); ?>" > Assign <strong>Panelist</strong></a>-->
+<a>|   |</a>
+<a href="panelistsProponents.php?viewpanel=<?php echo htmlentities($row4->group_id); ?>"class="del_btn">View Panelists</a>
 </td>
                     </tr>
                   <?php } ?>
-                    
+                   
                   </tbody>
                 </table>
               </div>

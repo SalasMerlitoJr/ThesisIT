@@ -136,6 +136,7 @@
   
         <div class="row">
           <div class="col-md-12">
+            <center><h2><strong>PANELISTS</strong></h2></center>
 
 <?php 
 
@@ -147,16 +148,19 @@
     $records4 = mysqli_query($conn, $sql4);
     while  ($row4 = mysqli_fetch_object($records4)) { ?>
         <center><h2><strong><?php echo htmlentities($row4->group_name);?></strong></h2></center>
-        <center><h1><strong>PANELISTS</strong></h1></center>
 
 <?php  } ?>
 <!-------------------------->
+<!--
 <form method="POST" action="proponentsPanelists.php">   
     <button type="submit" class="edit_btn" style="float: right">List of Groups</button> 
 </form>
+-->
 <!-------------------------->  
+
 <!-------------------------->
-<form method="POST" action="viewTeamswithPanelist.php">   
+<!--<form method="POST" action="viewTeamswithPanelist.php">-->
+<form method="POST" action="panelAssignment.php">  
     <button type="submit" class="edit_btn">Back</button> 
 </form>
 <!-------------------------->   
@@ -179,12 +183,19 @@
     include '../../../includes/connect.php';
 
     $selected_id = $_GET['viewpanel'];
-    $sql4 = "SELECT user_id,name,group_ad,panelist_id from users_tbl INNER JOIN thesis_panels_tbl on user_id = panelist_id where group_ad = '$selected_id' ";
+
+    if(isset($_GET['delete'])){    
+      $id = $_GET['delete'];              
+      $sql="DELETE from thesis_panels_tbl where thesis_panel_id = '$id' ";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+    }
+
+    $sql4 = "SELECT user_id,name,thesis_panel_id,group_id,panelist_id from users_tbl INNER JOIN thesis_panels_tbl on user_id = panelist_id where group_id = '$selected_id' ";
 
     //$sql4 = "SELECT user_id,name,group_ad,panelist_id from users_tbl INNER JOIN thesis_panels_tbl on user_id = panelist_id";
 
     //$sql4 = "SELECT * from thesis_panels_tbl where group_ad = '$selected_id' ";
-
 
     $records4 = mysqli_query($conn, $sql4);
     while  ($row4 = mysqli_fetch_object($records4)) {
@@ -194,7 +205,8 @@
         <td><?php echo htmlentities($row4->name);?></td>
                                              
 <td>
-<a href="" >Remove</a>
+<!--<a href="panelistsProponents.php?delete=<?php // echo htmlentities($row4->thesis_panel_id);  ?>" onclick="return confirm('Do you want to DELETE this?');"> remove</a>-->
+<a href="panelAssignment.php?delete=<?php echo htmlentities($row4->thesis_panel_id);  ?>" onclick="return confirm('Do you want to DELETE this?');"> remove</a>
 </td>
                     </tr>
                   <?php } ?>

@@ -28,6 +28,9 @@
   <!-- Admin Stye -->
   <link rel="stylesheet" href="../student_css/style.css">
 
+  <link rel="stylesheet" href="../student_css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../student_css/awesome-bootstrap-checkbox.css">
+
   <style type="text/css">
     .form_upload {
       width: 30%;
@@ -46,6 +49,23 @@
       padding: 10px;
       border-radius: 5px;
     }
+    .edit_btn {
+      text-decoration: none;
+      padding: 2px 5px;
+      background: #2E8B57;
+      color: white;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+
+    .del_btn {
+        text-decoration: none;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 3px;
+        background: #800000;
+    }
+
   </style>
 
 </head>
@@ -140,12 +160,13 @@
 
     <div class="content-wrapper">
       <div class="container-fluid">  <div class="row">
-          <div class="col-md-12">
-
+        <div class="col-md-12">
+          <div class="panel panel-default">
             <center><h2 class="page-title">File Upload Page</h2></center>
 
             <!---------------->
-            <div class="panel panel-default">
+            
+
               <!--<div class="panel-heading">List Users</div>
 
                 <table class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
@@ -170,64 +191,99 @@
             </div>-->
             <!---------------->
     <!------------------------------------------------------------->
-    <?php //include 'filesLogic.php'; 
 
-      $conn = mysqli_connect('localhost', 'root', '', 'tmsdup_previous');
+     <?php
+    include '../../../includes/connect.php';
 
-      $sql = "SELECT * FROM thesis_documents_tbl";
-      $result = mysqli_query($conn, $sql);
-
-      $files = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-      // Uploads files
-      if (isset($_POST['save'])) { // if save button on the form is clicked
-          // name of the uploaded file
-          $filename = $_FILES['myfile']['name'];
-
-          // destination of the file on the server
-          $destination = '../../../fileStorage/uploads/' . $filename;
-
-          // get the file extension
-          $extension = pathinfo($filename, PATHINFO_EXTENSION);
-
-          // the physical file on a temporary uploads directory on the server
-          $file = $_FILES['myfile']['tmp_name'];
-          $size = $_FILES['myfile']['size'];
-
-
-          if (!in_array($extension, ['zip', 'pdf', 'docx', 'PNG', 'png','JPG','jpg'])) {
-              echo "You file extension must be .zip, .pdf or .docx";
-          } elseif ($_FILES['myfile']['size'] > 1000000000000000) { // file size
-              echo "File too large!";
-          } else {
-              // move the uploaded (temporary) file to the specified destination
-              if (move_uploaded_file($file, $destination)) {
-                  //$sql = "INSERT INTO files (name, size, downloads) VALUES ('$filename', $size, 0)";
-                  $sql = "INSERT INTO thesis_documents_tbl (thesis_id,name) VALUES (1,'$filename')";
-
-                  if (mysqli_query($conn, $sql)) {
-                      echo "File uploaded successfully";
-                  }
-              } else {
-                  echo "Failed to upload file.";
-              }
-          }
-      }
-
+    //$sql4 = "SELECT * from schedules_tbl";
+    $my_group = $_SESSION['user_status'];
+    //$sql4 = "SELECT a.thesis_id,group_id,thesis_title,b.thesis_id,name from thesis_documents_tbl a INNER JOIN thesis_tbl b on a.thesis_id = b.thesis_id where group_id = '$my_group' limit 1 ";
+    $sql4 = "SELECT * from thesis_tbl where group_id = '$my_group' ";
+    if (isset($_POST['setTitle'])) { 
+      $thesis_title = $_POST['thesis_title'];
+      $description = $_POST['description'];
+      $group = $_SESSION['user_status'];
+      //ADD thesis title
+      $sql1 = "INSERT INTO thesis_tbl (group_id, thesis_title, thesis_description) VALUES ('$group','$thesis_title','$description')";
+      $stmt = $conn->prepare($sql1);
+      $stmt->execute();
+    } 
+    ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+     <table class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Thesis Title</th>
+          <th>Description</th>
+          <th>Action</th> 
+        </tr>
+    <tbody>
+    <?php 
+    $records4 = mysqli_query($conn, $sql4);
+    while  ($row4 = mysqli_fetch_object($records4)) {
     ?>
 
-        <form class="form_upload" action="fileUpload.php" method="post" enctype="multipart/form-data" >
-          <h3>Upload File</h3>
-          <input class="input_upload" type="file" name="myfile"> <br>
-          <button class="button_upload" type="submit" name="save">upload</button>
-        </form>
+      <!--<center><h2><a href="fileUploadSet.php?getThesis=<?php //echo htmlentities($row4->group_id); ?>" >  <?php //echo htmlentities($row4->thesis_title);?></a></h2></center><br>-->
+      <tr>
+        <td><?php echo htmlentities($row4->thesis_title);?></td>
+        <td><?php echo htmlentities($row4->thesis_description);?></td>
+              
+        <td>       
+        <!--<center><h2><a href="fileUploadSet.php?getThesis=<?php //echo htmlentities($row4->thesis_id); ?>" >  <?php //echo htmlentities($row4->thesis_title);?></a></h2></center><br> -->
+        <a href="fileUploadSet.php?getThesis=<?php echo htmlentities($row4->thesis_id); ?>" class="edit_btn">Upload File</a>
+        <a>| |</a>      
+        <a href="fileUploadPhase.php?setPhase=<?php echo htmlentities($row4->thesis_id); ?>" class="del_btn">Set Phase</a> 
+        </td>
+      </tr>
+    <?php }    
+    ?>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
 
     <!------------------------------------------------------------->
-         
+
+<!-------------->
+<div class="row">                      
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+<form method="post" action="fileUpload.php" class="form-horizontal" enctype="multipart/form-data">
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Thesis title<span style="color:red">*</span></label>
+  <div class="col-sm-4">
+  <input type="text" id="thesistitle" name="thesis_title" class="form-control" required>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">Description<span style="color:red">*</span></label>
+  <div class="col-sm-10">
+  <textarea class="form-control" rows="5" name="description" placeholder="Description" required></textarea>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-8 col-sm-offset-2">
+    <button class="btn btn-primary" name="setTitle" type="submit">Submit</button>
+  </div>
+</div>
+</form>
+                </div>
+              </div>
+            </div>
           </div>
+          <!-------------->
+      
         </div>
       </div>
     </div>
+  </div>
   <!------->
   </main> <!-- .cd-main-content -->
   <script src="../student_assets/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->

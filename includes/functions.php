@@ -25,16 +25,16 @@ class Login{
 
         // To protect MySQL injection for Security purpose
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ss", $username, $password);
+        $stmt->bind_param("ss", $email, $password);
         $stmt->execute();
-        $stmt->bind_result($username, $password);
+        $stmt->bind_result($email, $password);
         $stmt->store_result();
         if($stmt->fetch()) { //fetching the contents of the row 
-          $_SESSION['email'] = $username; // Initializing Session
+          $_SESSION['email'] = $email; // Initializing Session
         }
 
       mysqli_close($conn); // Closing Connection
-      //}
+      //} 
     } 
   }
   public function SessionCheck(){
@@ -54,36 +54,30 @@ class Login{
     $_SESSION["userpassword"] = $row["userpassword"];
     $_SESSION["user_status"] = $row["user_status"];
     $_SESSION["is_active"] = $row["is_active"];
+    //$_SESSION["ts_stat"] = $row["ts_stat"];
   }
 
   public function UserType(){
+    //if user type is superadmin, redirect to superadmin page
     if ($_SESSION["type"] == 'super admin') {
       header("Location:../user/superadmin/superadmin_dashboard.php");
     }
-    //if user role is 1, redirect to admin page
+    //if user type is chairman, redirect to chairman page
     if ($_SESSION["type"] == 'chairman') {
       header("Location:../user/chairman/chairman_dashboard.php");
     }
-    //if user role is 0, redirect to student page
+    //if user type is student, redirect to student page
     if ($_SESSION["type"] == 'student') {
       header("Location:../user/student/");
     }
-    /*if ($_SESSION["type"] == 'student' and $_SESSION["is_active"] == 1) {
-      echo "<script>alert('Your account was disabled by the chairman')";
-      //echo "<script>location.href='../index.php'</script>";
-    }*/
-    //if user role is 2, redirect to faculty page
+    //if user type is faculty, redirect to faculty page
     if ($_SESSION["type"] == 'faculty') {
       header("Location:../user/faculty/");
     }
-    //if user role is 3, redirect to secretary page
+    //if user type is secretary, redirect to secretary page
     if ($_SESSION["type"] == 'secretary') {
       header("Location:../user/secretary/");
     }
-    /*if ($_SESSION["is_active"] == 1) {
-      echo "<script>alert('Your account was disabled by the chairman')";
-      header("Location:../index.php");
-    }*/
   }
   public function SessionVerify(){
     if(isset($_SESSION['email'])){

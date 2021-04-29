@@ -33,6 +33,14 @@
       border-radius: 3px;
       font-size: 1.3em;
   }
+  .del_btn {
+        text-decoration: none;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 3px;
+        background: #800000;
+        font-size: 1.3em;
+    }
 </style>
 
 </head>
@@ -168,6 +176,13 @@
 <?php
     include '../../../includes/connect.php';
 
+    if(isset($_GET['delete'])){    
+      $id = $_GET['delete'];              
+      $sql="DELETE from group_tbl where group_id = '$id' ";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+    }
+
    //$sql4 = "SELECT * from group_tbl where adviser = 0";
      $sql4 = "SELECT name,group_id,group_name,adviser from users_tbl inner join group_tbl on user_id = adviser ";
     $records4 = mysqli_query($conn, $sql4);
@@ -181,7 +196,9 @@
 <td>
 <!--<a href="assignAdvisertoTeam.php?assignAdviser=<?php //echo htmlentities($row4->group_id); ?>" > Assign</a>
 <a>|   |</a>-->
-<a href="viewTeamswithAdviser.php?gg=<?php //echo htmlentities($row4->group_id); ?>" onclick="return confirm('Do you want to remove this adviser from this team?');">Remove</a>
+<a href="viewTeamswithAdviser.php?delete=<?php echo htmlentities($row4->group_id); ?>" onclick="return confirm('Do you want to remove this adviser from this team?');"class="del_btn">Remove</a>
+<a>|    |</a>
+<a href="assignAdvisertoTeam.php?assignAdviser=<?php echo htmlentities($row4->group_id); ?>" class="edit_btn"> Edit Adviser</a>
 </td>
                     </tr>
                   <?php } ?>

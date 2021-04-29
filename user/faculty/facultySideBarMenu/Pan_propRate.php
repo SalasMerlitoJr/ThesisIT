@@ -21,19 +21,33 @@
   <!-- Admin Stye -->
   <link rel="stylesheet" href="../faculty_css/style.css">
 
+  <link rel="stylesheet" href="../faculty_css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../faculty_css/awesome-bootstrap-checkbox.css">
+
+  <style type="text/css">
+  .edit_btn{
+      text-decoration: none;
+      padding: 2px 5px;
+      /*background: #2E8B57;*/
+      background: #4169E1;
+      color: white;
+      border-radius: 3px;
+      font-size: 1.3em;
+      /*float: right;*/
+      margin-right: 1em
+  }
+</style>
+
 </head>
 
 <body>
   <header class="cd-main-header js-cd-main-header">
     <div class="cd-logo-wrapper">
-      <!--<a href="#0" class="cd-logo"><img src="assets/img/cd-logo.svg" alt="Logo"></a>-->
       <div class="cd-logo"><img src="../faculty_assets/img/ustp_logo.png" alt="Logo" class="ustp_logo"></div>
     </div>
     
-    <!--<div class="cd-search js-cd-search">-->
     <div class="js-cd-search">
       <form>
-        <!--<center><h3 class="thesis-title" style="color:white; margin-top: 1em">BSIT-USTP Thesis Management System</h3></center>-->
         <center><h3 class="thesis-title">USTP-BSIT Thesis Management System</h3></center>
       </form>
     </div>
@@ -127,6 +141,137 @@
           <div class="col-md-12">
 
             <center><h2 class="page-title">Proponents Rate Page</h2></center>
+
+<!-------------------------->
+<form method="POST" action="Pan_ratepage2.php">   
+    <button type="submit" class="edit_btn" style="float: left">Project Concept</button> 
+</form>
+<!-------------------------->    
+
+<!-------------------------->
+<form method="POST" action="Pan_ratepagePP.php">   
+    <button type="submit" class="edit_btn" style="float: left">Project Proposal</button> 
+</form>
+<!--------------------------> 
+
+<!-------------------------->
+<form method="POST" action="Pan_ratepagePI.php">   
+    <button type="submit" class="edit_btn">Project Implementation</button> 
+</form>
+<!--------------------------> 
+
+            <!------------------------------------------------------>
+            <!--
+            <div class="panel panel-default">
+              <div class="panel-heading">Team List</div>
+              <div class="panel-body">
+
+                <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Rubric ID</th>
+                      <th>Rubric Name</th>
+                      <th>Parent Rubric ID</th>
+                      <th>Parent Rubric Name</th>
+                      <th>Action</th> 
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+<?php /*
+    include '../../../includes/connect.php';
+
+   //$sql4 = "SELECT a.rubric_id as "Rubric_ID", a.rubric_name as "Rubric_Name",b.rubric_id as "Parent_Rubric_ID",b.rubric_name AS "Parent_Rubric_Name" from rubrics_tbl a,rubrics_tbl b where a.parent_rubric_id = b.rubric_id"; //error
+    
+    //*****----main-----
+    //$sql4 = "SELECT a.rubric_id, a.rubric_name, a.parent_rubric_id,b.rubric_name from rubrics_tbl a,rubrics_tbl b where a.parent_rubric_id = b.rubric_id"; //insakto ang output sa MYSQL pero sayup dre sa PHP
+    
+    //$sql4 = "SELECT * from rubrics_tbl";//just simple
+
+    //$sql4 = "SELECT a.rubric_id, a.rubric_name, a.parent_rubric_id from rubrics_tbl a,rubrics_tbl b where a.parent_rubric_id = b.rubric_id";
+    //insakto ang output sa MYSQL pero sayup dre sa PHP
+    //wrong output, but can be used if parent rubric name is eliminated
+
+    //$sql4 = "SELECT * from rubrics_tbl where parent_rubric_id = rubric_id"; //error
+
+    $sql4 = "SELECT a.rubric_id, a.rubric_name, a.parent_rubric_id,a.rubric_name from rubrics_tbl a,rubrics_tbl b where a.parent_rubric_id = b.rubric_id"; //wrong output
+
+    //$sql4 = "SELECT a.rubric_id, a.rubric_name,b.rubric_id,b.rubric_name from rubrics_tbl a,rubrics_tbl b where parent_rubric_id = rubric_id"; //error
+
+    //$sql4 = "SELECT a.rubric_id,a.rubric_name,b.rubric_id,b.rubric_name from rubrics_tbl a,rubrics_tbl b where a.parent_rubric_id = b.rubric_id"; //error
+
+    $records4 = mysqli_query($conn, $sql4);
+    while  ($row4 = mysqli_fetch_object($records4)) { 
+?>
+      <tr>
+        
+        <td><?php echo htmlentities($row4->rubric_id);?></td>
+        <td><?php echo htmlentities($row4->rubric_name);?></td>
+        <td><?php echo htmlentities($row4->parent_rubric_id);?></td>
+        <td><?php echo htmlentities($row4->rubric_name); ?></td>
+                                             
+<td>
+<a href="" > ? </a>
+</td>
+                    </tr>
+                  <?php } */?>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> -->
+            <!------------------------------------------------------>
+
+            <!------------------------------------------------------>
+            <div class="panel panel-default">
+              <div class="panel-heading">Team List</div>
+              <div class="panel-body">
+
+                <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th><strong>ID</strong></th>
+                      <th><strong>Adviser Name</strong></th>
+                      <th><strong>Group Name</strong></th>
+                      <th><strong>Thesis Phase</strong></th>
+                      <th><strong>Thesis Title</strong></th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+<?php
+    include '../../../includes/connect.php';
+
+    $my_id = $_SESSION['user_id'];
+
+   $sql4 = "SELECT user_id,name,a.group_id,group_name,phase_id,phase_name,schedule_id,group_sc,phase_sc,time_start,time_end,venue,thesis_id,b.group_id,thesis_title,c.group_id,panelist_id from group_tbl a INNER JOIN users_tbl on user_id = adviser INNER JOIN schedules_tbl on a.group_id = group_sc INNER JOIN phases_tbl on phase_id = phase_sc INNER JOIN thesis_tbl b on a.group_id = b.group_id INNER JOIN thesis_panels_tbl c on a.group_id = c.group_id";
+
+    //$sql4 = "SELECT user_id,name,a.group_id,group_name,thesis_id,b.group_id,thesis_title from group_tbl a INNER JOIN users_tbl on user_id = adviser INNER JOIN thesis_tbl b on a.group_id = b.group_id "; //no phase name
+
+    $records4 = mysqli_query($conn, $sql4);
+    while  ($row4 = mysqli_fetch_object($records4)) {
+      if($row4->panelist_id == $my_id){
+?>
+      <tr>        
+        <td><?php echo htmlentities($row4->group_id);?></td>
+        <td><?php echo htmlentities($row4->name);?></td>
+        <td><?php echo htmlentities($row4->group_name);?></td>
+        <td><?php echo htmlentities($row4->phase_name);?></td>
+        <td><?php echo htmlentities($row4->thesis_title);?></td>
+                                             
+<!--<td>
+<a href="Pan_ratepage.php?panelrate=<?php // echo htmlentities( $row4->group_id); ?>"> Rate </a>
+</td> -->
+                    </tr>
+                  <?php } }?>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+            <!------------------------------------------------------>
             
           </div>
         </div>

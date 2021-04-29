@@ -137,11 +137,10 @@
         <div class="row">
           <div class="col-md-12">
 
-            <!--<center><h2 class="page-title">Panel Assignment Page</h2></center>-->
             <center><h2><strong>GROUPS</strong></h2></center>
 <!-------------------------->
 <form method="POST" action="proponentsPanelists.php">   
-    <button type="submit" class="edit_btn" style="float: right">List of Panels</button> 
+    <button type="submit" class="edit_btn" style="float: right">List of Panelists</button> 
 </form>
 <!-------------------------->  
 
@@ -208,7 +207,9 @@
   $records = mysqli_query($conn, $sql);
   $rowcount = mysqli_num_rows($records); */
 
-   $sql4 = "SELECT name,group_id,group_name,adviser from users_tbl inner join group_tbl on user_id = adviser ";
+   //$sql4 = "SELECT name,a.group_id,group_name,adviser,thesis_id,b.group_id,thesis_title from users_tbl inner join group_tbl a on user_id = adviser inner join thesis_tbl b on a.group_id = b.group_id "; //with thesis title
+
+   $sql4 = "SELECT name,a.group_id,group_name,adviser from users_tbl inner join group_tbl a on user_id = adviser "; // group only
     $records4 = mysqli_query($conn, $sql4);
     while  ($row4 = mysqli_fetch_object($records4)) {
 ?>
@@ -223,7 +224,10 @@
 <a>|   |</a>-->
 <!--<a href="viewTeamswithAdviser.php?gg=<?php //echo htmlentities($row4->group_id); ?>" onclick="return confirm('Do you want to remove this adviser from this team?');">Remove</a>
 <a>|   |</a>-->
+
 <a href="panelistsProponents.php?viewpanel=<?php echo htmlentities($row4->group_id); ?>" >View <strong>Panelists</strong></a>
+
+<!--<a href="panelistsProponents.php?viewpanel=<?php //echo htmlentities($row4->thesis_id); ?>" >View <strong>Panelists</strong></a>-->
 </td>
                     </tr>
                   <?php } ?>

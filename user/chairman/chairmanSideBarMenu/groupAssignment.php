@@ -232,7 +232,7 @@
                       <td><?php echo htmlentities($row->email);?></td>
                       
 <td>
-<a href="membersAddition.php?add=<?php echo htmlentities($row->user_id); ?>"> Add to Group </a>
+<a href="membersAddition.php?add=<?php echo htmlentities($row->user_id); ?>" class="edit_btn">Add to Group </a>
 <!--<a data-toggle="modal" data-target="#myModal" href="editRecords_modal_style.php?add=<?php //echo htmlentities($row->user_id); ?>" > Add to Group </a>-->
 
 <!--<button type="button" data-toggle="modal" data-target="#myModal">Open Modal</button>-->

@@ -169,7 +169,7 @@
     include '../../../includes/connect.php';
 
    $sql4 = "SELECT * from group_tbl where adviser = 0";
-     //$sql4 = "SELECT name,group_id,group_name,adviser from users_tbl inner join group_tbl on user_id = adviser ";
+
     $records4 = mysqli_query($conn, $sql4);
     while  ($row4 = mysqli_fetch_object($records4)) {
 ?>
@@ -180,8 +180,6 @@
                                              
 <td>
 <a href="assignAdvisertoTeam.php?assignAdviser=<?php echo htmlentities($row4->group_id); ?>" > Assign <strong>Adviser</strong></a>
-<!--<a>|   |</a>
-<a onclick="return confirm('Do you want to delete this team proposal?');">Remove</a>-->
 </td>
                     </tr>
                   <?php } ?>

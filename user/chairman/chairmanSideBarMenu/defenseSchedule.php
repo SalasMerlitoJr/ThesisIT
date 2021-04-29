@@ -182,6 +182,15 @@
           <div class="col-md-12">
 
             <center><h2 class="page-title">Defense Schedule Page</h2></center>
+
+<!-------------------------->
+<form method="POST" action="defenseScheduleView.php">   
+    <button type="submit" class="edit_btn">View Schedule</button> 
+</form>
+<!-------------------------->  
+      <div class="panel panel-default">
+        <div class="panel-heading">Group List</div>
+          <div class="panel-body">
             <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                   <thead>
                     <tr>
@@ -207,7 +216,7 @@
         <td><?php echo htmlentities($row4->name);?></td>
                                              
 <td>
-<a href="scheduleAssign.php?assignSched=<?php echo htmlentities($row4->group_id); ?>" > Assign <strong>Schedule</strong></a>
+<a href="scheduleAssign.php?assignSched=<?php echo htmlentities($row4->group_id); ?>"class="edit_btn" > Assign Schedule</a>
 <!--<a>|   |</a>
 <a onclick="return confirm('Do you want to delete this team proposal?');">Remove</a>-->
 </td>

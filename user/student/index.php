@@ -85,7 +85,7 @@
 
         <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
 
-          <a href="studentSideBarMenu/fileUpload.php">File Upload</a>
+          <a href="studentSideBarMenu/fileUpload.php">Thesis Proposal</a>
 
         </li>
         <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">

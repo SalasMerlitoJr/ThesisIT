@@ -5,12 +5,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
-  <!--<meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="theme-color" content="#3e454c">-->
 
   <script>document.getElementsByTagName("html")[0].className += " js";</script>
   <link rel="stylesheet" href="../secretary_assets/css/style.css">
@@ -27,6 +21,9 @@
   <link rel="stylesheet" href="../secretary_css/bootstrap-select.css">
   <!-- Admin Stye -->
   <link rel="stylesheet" href="../secretary_css/style.css">
+
+  <link rel="stylesheet" href="../secretary_css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../secretary_css/awesome-bootstrap-checkbox.css">
 
 </head>
 
@@ -103,6 +100,53 @@
           <div class="col-md-12">
 
             <center><h2 class="page-title">Defense Schedule</h2></center>
+
+            <!---------------->
+            <div class="panel panel-default">
+              <div class="panel-heading">Schedule</div>
+              <div class="panel-body">
+
+                <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th><strong>ID</strong></th>
+                      <th><strong>Adviser Name</strong></th>
+                      <th><strong>Group Name</strong></th>
+                      <th><strong>Thesis Phase</strong></th>
+                      <th><strong>Date</strong></th>
+                      <th><strong>Time Start</strong></th>
+                      <th><strong>Time End</strong></th>
+                      <th><strong>Venue</strong></th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+    <?php
+    include '../../../includes/connect.php';
+
+    //$sql4 = "SELECT * from schedules_tbl";
+    $sql4 = "SELECT user_id,name,group_id,group_name,phase_id,phase_name,schedule_id,group_sc,phase_sc,date,time_start,time_end,venue from group_tbl INNER JOIN users_tbl on user_id = adviser INNER JOIN schedules_tbl on group_id = group_sc INNER JOIN phases_tbl on phase_id = phase_sc";
+    $records4 = mysqli_query($conn, $sql4);
+    while  ($row4 = mysqli_fetch_object($records4)) {
+    ?>
+                    <tr>
+              <td><?php echo htmlentities($row4->schedule_id);?></td>
+              <td><?php echo htmlentities($row4->name);?></td>
+              <td><?php echo htmlentities($row4->group_name);?></td>
+              <td><?php echo htmlentities($row4->phase_name);?></td>
+              <td><?php echo htmlentities($row4->date);?></td>
+              <td><?php echo htmlentities($row4->time_start);?></td>
+              <td><?php echo htmlentities($row4->time_end);?></td>
+              <td><?php echo htmlentities($row4->venue);?></td>
+                     
+                    </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+            <!---------------->
             
           </div>
         </div>

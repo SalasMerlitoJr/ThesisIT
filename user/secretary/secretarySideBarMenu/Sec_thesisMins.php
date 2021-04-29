@@ -22,6 +22,20 @@
   <!-- Admin Stye -->
   <link rel="stylesheet" href="../secretary_css/style.css">
 
+  <link rel="stylesheet" href="../secretary_css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../secretary_css/awesome-bootstrap-checkbox.css">
+  <style type="text/css">
+  .edit_btn{
+      text-decoration: none;
+      padding: 2px 5px;
+      /*background: #2E8B57;*/
+      background: #4169E1;
+      color: white;
+      border-radius: 3px;
+      font-size: 1.3em;
+  }
+</style>
+
 </head>
 
 <body>
@@ -91,56 +105,64 @@
     </nav>
 
     <div class="content-wrapper">
-      <div class="container-fluid">
-  
+      <div class="container-fluid">  
         <div class="row">
           <div class="col-md-12">
 
-            <center><h2 class="page-title">Thesis Minutes Page</h2></center>
+            <center><h2 class="page-title">Thesis Minutes Page</h2></center> 
 
-            <!-------------->
-            <div class="row">
-                       
-              <div class="col-md-12">
-                            <h2>Give Feedback</h2>
-                <div class="panel panel-default">
-                  <div class="panel-heading">Edit Info</div>
+            <div class="panel panel-default">
+              <div class="panel-heading">Team List</div>
+              <div class="panel-body">
 
-<div class="panel-body">
-<form method="post" class="form-horizontal" enctype="multipart/form-data">
+                <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th><strong>Group ID</strong></th>
+                      <th>Group Name</th>
+                      <!--addition-->
+                      <th>Title</th> 
+                      <th>Phase</th>  
+                      <!------------>
+                      <th><strong>Adviser Name</strong></th>
+                      <th>Action</th> 
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+<?php
+    include '../../../includes/connect.php';
 
-<div class="form-group">
-    <input type="hidden" name="user" value="<?php echo htmlentities($result->email); ?>">
-  <label class="col-sm-2 control-label">Title<span style="color:red">*</span></label>
-  <div class="col-sm-4">
-  <input type="text" name="title" class="form-control" required>
-  </div>
+   //$sql4 = "SELECT name,a.group_id,group_name,adviser,thesis_id,b.group_id,thesis_title from users_tbl inner join group_tbl a on user_id = adviser inner join thesis_tbl b on a.group_id = b.group_id "; //without thesis title,phase name
 
-  <label class="col-sm-2 control-label">Attachment<span style="color:red"></span></label>
-  <div class="col-sm-4">
-  <input type="file" name="attachment" class="form-control">
-  </div>
-</div>
+   $sql4 = "SELECT name,a.group_id,group_name,adviser,thesis_id,b.group_id,thesis_title,group_sc,phase_sc,phase_id,phase_name from users_tbl inner join group_tbl a on user_id = adviser inner join thesis_tbl b on a.group_id = b.group_id inner join schedules_tbl on a.group_id = group_sc inner join phases_tbl on phase_id = phase_sc"; //with thesis title and phase name
 
-<div class="form-group">
-  <label class="col-sm-2 control-label">Description<span style="color:red">*</span></label>
-  <div class="col-sm-10">
-  <textarea class="form-control" rows="5" name="description"></textarea>
-  </div>
-</div>
+   
 
-<div class="form-group">
-  <div class="col-sm-8 col-sm-offset-2">
-    <button class="btn btn-primary" name="submit" type="submit">Send</button>
-  </div>
-</div>
-
-</form>
-                  </div>
-                </div>
+   //$sql4 = "SELECT name,a.group_id,group_name,adviser from users_tbl inner join group_tbl a on user_id = adviser "; // group only
+    $records4 = mysqli_query($conn, $sql4);
+    while  ($row4 = mysqli_fetch_object($records4)) {
+?>
+      <tr>
+        <td><?php echo htmlentities($row4->group_id);?></td>
+        <td><?php echo htmlentities($row4->group_name);?></td>
+        <!---------------------Addition------------------------> 
+        <td><?php echo htmlentities($row4->thesis_title);?></td>   
+        <td><?php echo htmlentities($row4->phase_name);?></td>
+        <!--------------------------------------------------->  
+        <td><?php echo htmlentities($row4->name); ?></td>
+                                             
+<td>
+<a href="Sec_thesisMinsSet.php?viewpanel=<?php echo htmlentities($row4->thesis_id); ?>"class="edit_btn" >Set Thesis Minutes</a>
+</td>
+                    </tr>
+                  <?php } ?>
+                    
+                  </tbody>
+                </table>
               </div>
             </div>
-            <!-------------->
+          </div>
             
           </div>
         </div>

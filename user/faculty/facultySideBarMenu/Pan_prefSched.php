@@ -134,23 +134,10 @@
               <div class="col-md-12">
                             <!--<h2>Give Feedback</h2>-->
                 <div class="panel panel-default">
-                  <div class="panel-heading">Message the chairman with preferred schedule</div>
+                  <div class="panel-heading"><sup style="color: red">**</sup>Notify the chairman with your preferred schedule</div>
 
 <div class="panel-body">
-<form method="post" class="form-horizontal" enctype="multipart/form-data">
-
-<div class="form-group">
-  <input type="hidden" name="user" value="<?php echo htmlentities($result->email); ?>">
-  <label class="col-sm-2 control-label">Title<span style="color:red">*</span></label>
-  <div class="col-sm-4">
-  <input type="text" name="title" class="form-control" required>
-  </div>
-
-  <!--<label class="col-sm-2 control-label">Attachment<span style="color:red"></span></label>
-  <div class="col-sm-4">
-  <input type="file" name="attachment" class="form-control">
-  </div>-->
-</div>
+<form method="post" class="form-horizontal" enctype="multipart/form-data"> 
 
 <div class="form-group">
   <label class="col-sm-2 control-label">Message<span style="color:red">*</span></label>

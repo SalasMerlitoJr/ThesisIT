@@ -213,6 +213,13 @@
       $sql11="UPDATE users_tbl SET user_status = '$group_id' where user_id = '$selected_id' ";
       $stmt11 = $conn->prepare($sql11);
       $stmt11->execute();
+
+      //WAAA EPEK, KAY keyword ang 'group' na word sa sql
+      //$sql="INSERT INTO group_members_tbl (group,member_id) values ('$group_id','$selected_id')";
+      //$sql="INSERT INTO group_members_tbl (group,member_id) values ('" . $group_id . "','" . $selected_id . "')";
+      $sql="INSERT INTO group_members_tbl (group_m,member_id) values ('" . $group_id . "','" . $selected_id . "')";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
     } 
     
     $sql2 = "SELECT * FROM group_tbl"; // if status != 0 dili na ma display ang name sa instructor

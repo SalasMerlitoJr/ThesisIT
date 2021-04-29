@@ -76,7 +76,7 @@
 
         <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
 
-          <a href="fileUpload.php">File Upload</a>
+          <a href="fileUpload.php">Thesis Proposal</a>
 
         </li>
         <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
@@ -118,11 +118,25 @@
         <div class="row">
           <div class="col-md-12">
             <center><h2 class="page-title">Adviser Rating Page</h2></center>
+
+  <!------------------>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">panel rate</div>
+                     <div class="panel-body">
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>     
   <!------------------>
 
+<!--
 <center>
 
-<?php
+<?php /*
   include '../../../includes/connect.php';
 
 //----------------------------------------------------
@@ -157,24 +171,13 @@
         $stmt7->execute();     
     }
 
-   /* if(isset($_POST['deleteAllRecords'])){
-
-        $sql6="DELETE from users_tbl";
-        $stmt6 = $conn->prepare($sql6);
-        $stmt6->execute();   
-
-        $sql6="DELETE from team_members_tbl ";
-        $stmt6 = $conn->prepare($sql6);
-        $stmt6->execute();    
-    }*/
-
     if(isset($_POST['Set_all_del_stat_to_zero_from_users_table'])){
 
         $sql7="UPDATE users_tbl SET status = 0 where status != 0";
         $stmt7 = $conn->prepare($sql7);
         $stmt7->execute();
       
-    }
+    } */
 
   //------------------------------------------------
 
@@ -189,7 +192,7 @@
                   <center><button action="membersAddition.php" name="deleteAllRecords" type="submit">Delete all records from database <strong>Think Again!</strong></button></center>
 
 
-            </form></center>
+            </form></center> -->
                     
           </div>
         </div>

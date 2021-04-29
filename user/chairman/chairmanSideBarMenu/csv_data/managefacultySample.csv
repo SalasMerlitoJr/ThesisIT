@@ -1,12 +1,19 @@
-﻿name,username,email,userpassword,type
- Jomar Llevado ,llevado123,f1@gg.com,12345,faculty
-Anna Fay Edulsa Naïve,naive123,f2@gg.com,12345,faculty
-Ulrich Uy,uy123,f3@gg.com,12345,faculty
-Paul Estrera,estrera123,f4@gg.com,12345,faculty
-Vince Calo,calo123,f5@gg.com,12345,faculty
-Elon Musk ,musk123,f6@gg.com,12345,faculty
-Mark Zuckerberg ,zuckerberg123,f7@gg.com,12345,faculty
-Bill Gates,gates123,f8@gg.com,12345,faculty
-Archie Pachica,pachica123,f9@gg.com,12345,faculty
-Jocelyn Garrido,garrido123,f10@gg.com,12345,faculty
-Petal May Dal,dal123,f11@gg.com,12345,faculty
+name, username,email,userpassword,type,,
+Jomar Llevado, jom@123,jom@gg.com,12345, faculty,,
+Anna Fay Edulsa Na�ve,ana@123,ana@gg.com,12345, faculty,,
+Ulrich Uy,ul@123,ul@gg.com,12345, faculty,,
+Paul Estrera,paul@123,paul@gg.com,12345, faculty,,
+Vince Calo,vince@123,vince@gg.com,12345, faculty,,
+Archie Pachica,arch@123,arch@gg.com,12345, faculty,,
+Jocelyn Garrido,jo@123,jo@gg.com,12345, faculty,,`
+Petal May Dal,petal@123,petal@gg.com,12345, faculty,,
+Jay Noel Rojo,jay@123,jay@gg.com,12345,faculty,,
+Albert Christopher Daniot,al@123,al@gg.com,12345,faculty,,
+Rhea Suzette Haguisan,rhea@123,rhea@gg.com,12345,faculty,,
+Floreto Quinito,flor@123,flor@gg.com,12345,faculty,,
+Love Jhoye Raboy,love@123,love@gg.com,12345,faculty,,
+Angelie Sabanal,angelie@123,angelie@gg.com,12345,faculty,,
+Maricel Esclamado,mar@123,mar@gg.com,12345,faculty,,
+Feliciano IV Legara,fel@123,fel@gg.com,12345,faculty,,
+Ma. Esther Chio,maester@123,maester@gg.com,12345,faculty,,
+Al-Monte Calo,almon@123,almon@gg.com,12345,faculty,,

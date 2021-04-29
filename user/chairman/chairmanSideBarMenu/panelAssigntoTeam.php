@@ -57,7 +57,6 @@
     <!--<div class="cd-search js-cd-search">-->
     <div class="js-cd-search">
       <form>
-        <!--<center><h3 class="thesis-title" style="color:white; margin-top: 1em">BSIT-USTP Thesis Management System</h3></center>-->
         <center><h3 class="thesis-title">USTP-BSIT Thesis Management System</h3></center>
       </form>
     </div>
@@ -167,7 +166,12 @@
   
   $selected_id = $_GET['assignPanel'];
 
-  $sql = "SELECT * from group_tbl where group_id = '$selected_id' ";
+  //$sql = "SELECT * from group_tbl where group_id = '$selected_id' ";
+
+  //$sql = "SELECT name,a.group_id,group_name,adviser,thesis_id,b.group_id,thesis_title from users_tbl inner join group_tbl a on user_id = adviser inner join thesis_tbl b on a.group_id = b.group_id where thesis_id = '$selected_id' "; //dependent on thesis_title
+
+  $sql = "SELECT name,group_id,group_name,adviser from users_tbl inner join group_tbl a on user_id = adviser where group_id = '$selected_id' ";
+
   $records = mysqli_query($conn, $sql);
   while  ($row = mysqli_fetch_object($records)) { 
 ?>
@@ -194,7 +198,7 @@
     $selected_id = $_GET['assignPanel'];
     if(isset($_POST['assignP'])){
       $panelist = $_POST['panelist'];
-      $sql = "INSERT INTO thesis_panels_tbl (group_ad,panelist_id) values ('" . $selected_id . "','" . $panelist . "')";
+      $sql = "INSERT INTO thesis_panels_tbl (group_id,panelist_id) values ('" . $selected_id . "','" . $panelist . "')";
       $stmt = $conn->prepare($sql);
       $stmt->execute();
     } 
@@ -217,6 +221,19 @@
 </form>
 
 <!-------------------------->
+
+<?php
+    include '../../../includes/connect.php';
+    $selected_id = $_GET['assignPanel'];
+    
+    //$sql2 = "SELECT * FROM users_tbl where type = 'faculty'";
+   //$selected_id2 = $_GET['assignPanel'];
+   $sql4 = "SELECT user_id,name,group_id,panelist_id FROM users_tbl INNER JOIN thesis_panels_tbl on panelist_id = user_id where group_id = '$selected_id' and user_status = '$selected_id' "; 
+    $records4 = mysqli_query($conn, $sql4);
+    while  ($row4 = mysqli_fetch_object($records4)) {
+?>
+        <h4><?php echo htmlentities($row4->name); }?></h4>
+
           </div>
         </div>
       </div>

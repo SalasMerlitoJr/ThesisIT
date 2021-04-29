@@ -1,18 +1,14 @@
+
 <?php 
   include 'settings.php'; //include settings 
   include '../../includes/connect.php';
 ?>
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
-  <!--<meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="theme-color" content="#3e454c">-->
 
   <script>document.getElementsByTagName("html")[0].className += " js";</script>
   <link rel="stylesheet" href="chairman_assets/css/style.css">
@@ -33,16 +29,15 @@
 </head>
 
 <body>
+
   <header class="cd-main-header js-cd-main-header">
     <div class="cd-logo-wrapper">
-      <!--<a href="#0" class="cd-logo"><img src="assets/img/cd-logo.svg" alt="Logo"></a>-->
-      <div class="cd-logo"><img src="chairman_assets/img/ustp_logo.png" alt="Logo" class="ustp_logo"></div>
+      <div class="cd-logo"><img src="chairman_assets/img/ustp_logo.png" alt="Logo" class="ustp_logo">
+      </div>
     </div>
     
-    <!--<div class="cd-search js-cd-search">-->
     <div class="js-cd-search">
       <form>
-        <!--<center><h3 class="thesis-title" style="color:white; margin-top: 1em">BSIT-USTP Thesis Management System</h3></center>-->
         <center><h3 class="thesis-title">USTP-BSIT Thesis Management System</h3></center>
       </form>
     </div>
@@ -50,11 +45,11 @@
     <button class="reset cd-nav-trigger js-cd-nav-trigger" aria-label="Toggle menu"><span></span></button>
   
     <ul class="cd-nav__list js-cd-nav__list">
-      <li class="cd-nav__item"><!--<a href="#0">Tour</a></li>-->
-      <li class="cd-nav__item"><!--<a href="#0">Support</a></li>-->
+      <li class="cd-nav__item">
+      <li class="cd-nav__item">
       <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
         <a href="#0">
-          <!--<img src="admin_assets/img/cd-avatar.svg" alt="avatar">-->
+
           <span><center>Account</center></span> <div style="width: 2.6em"></div>
 
         </a>
@@ -77,12 +72,6 @@
         <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
           <!--<a href="">Feature 1</a>-->
           <a href="chairman_dashboard.php">Dashboard</a>
-          
-          <!--<ul class="cd-side__sub-list">
-            <center><li class="cd-side__sub-item"><a href="#0">Sub Feature 1</a></li></center>
-            <center><li class="cd-side__sub-item"><a href="#0">Sub Feature 1</a></li></center>
-            <center><li class="cd-side__sub-item"><a href="#0">Sub Feature 1</a></li></center>
-          </ul>-->
         </li>
 
         <li class="cd-side__item cd-side__item--has-children cd-side__item--notifications cd-side__item--selected js-cd-item--has-children">          
@@ -121,11 +110,6 @@
           <!--<a href="">Feature 5</a>-->
           <a href="chairmanSideBarMenu/defenseSchedule.php">Defense Schedule</a>
           
-          <!--<ul class="cd-side__sub-list">
-            <center><li class="cd-side__sub-item"><a href="#0">Sub Feature 5</a></li></center>
-            <center><li class="cd-side__sub-item"><a href="#0">Sub Feature 5</a></li></center>
-            <center><li class="cd-side__sub-item"><a href="#0">Sub Feature 5</a></li></center>
-          </ul>-->
         </li>
 
         <!--<li class="cd-side__item cd-side__item--has-children cd-side__item--users js-cd-item--has-children">-->
@@ -134,19 +118,8 @@
           <a href="chairmanSideBarMenu/manuscript.php">Thesis Manuscripts</a>
         </li>
       </ul>
-    
-      <!--<ul class="cd-side__list js-cd-side__list">
-        <li class="cd-side__label"><span>Action</span></li>
-        <li class="cd-side__btn"><button class="reset" href="#0">+ Button</button></li>
-      </ul>-->
     </nav>
   
-    <!--<div class="cd-content-wrapper">
-      <div class="text-component text-center">
-        <h1>Responsive Sidebar Navigation</h1>
-        <p>👈<a href="https://codyhouse.co/gem/responsive-sidebar-navigation">Article &amp; Download</a></p>
-      </div>
-    </div> --><!-- .content-wrapper -->
     <!------->
     <div class="content-wrapper">
       <div class="container-fluid">
@@ -274,4 +247,3 @@ $rowcount = mysqli_num_rows($records);
 
 </body>
 </html>
-<!--<?php // } ?>-->

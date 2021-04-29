@@ -4,12 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
-  <!--<meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="theme-color" content="#3e454c">-->
+
 
   <script>document.getElementsByTagName("html")[0].className += " js";</script>
   <link rel="stylesheet" href="../student_assets/css/style.css">
@@ -27,19 +22,55 @@
   <!-- Admin Stye -->
   <link rel="stylesheet" href="../student_css/style.css">
 
+  <link rel="stylesheet" href="../student_css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="../student_css/awesome-bootstrap-checkbox.css">
+
+
+  <style type="text/css">
+  body {
+    background:#ffffff;
+    text-align: center;
+    /*margin-top:-100px;*/  
+  }
+  
+  .search_form {
+    margin-top: 5em;
+  }
+
+  .search_input {
+    height: 3em;
+    width: 50%; 
+  }
+
+  .search_button {
+    height: 3em;
+    width: 7%; 
+  }
+
+  .results {
+    margin-left:12%; 
+    margin-right:12%; 
+    margin-top:10px;
+    color: #000000;
+  }
+
+  #img{
+    left-margin:900px;
+  }
+    
+</style>
+
 </head>
 
 <body>
   <header class="cd-main-header js-cd-main-header">
     <div class="cd-logo-wrapper">
-      <!--<a href="#0" class="cd-logo"><img src="assets/img/cd-logo.svg" alt="Logo"></a>-->
       <div class="cd-logo"><img src="../student_assets/img/ustp_logo.png" alt="Logo" class="ustp_logo"></div>
     </div>
     
     <!--<div class="cd-search js-cd-search">-->
     <div class="js-cd-search">
       <form>
-        <!--<center><h3 class="thesis-title" style="color:white; margin-top: 1em">BSIT-USTP Thesis Management System</h3></center>-->
         <center><h3 class="thesis-title">USTP-BSIT Thesis Management System</h3></center>
       </form>
     </div>
@@ -81,7 +112,7 @@
 
       	<li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
 
-          <a href="fileUpload.php">File Upload</a>
+          <a href="fileUpload.php">Thesis Proposal</a>
 
         </li>
         <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
@@ -124,7 +155,61 @@
           <div class="col-md-12">
 
             <center><h2 class="page-title">Document Search Page</h2></center>
-            
+
+            <!---------------------------------------------------------->
+            <center>
+            <form class="search_form" action="documentSearch.php" method="get">     
+              <input class="search_input" type="text" name="user_query" placeholder="Write something to search"/> 
+              <input class="search_button" type="submit" name="search" value="Search Now">  
+            </form>
+            </center>
+            <!---------------------------------------------------------->
+
+            <!----------------------------------------------->  
+            <?php 
+              $con=mysqli_connect("localhost","root","");
+              mysqli_select_db($con,"tmsdup");
+              
+              if(isset($_GET['search'])){ 
+                $get_value = $_GET['user_query'];
+                
+                if($get_value==''){ 
+                  echo "<center><b>Please go back, and Write something in the search box!</b></center>";
+                  exit();
+                }
+
+              //$result_query = "SELECT a.thesis_id,thesis_title,b.thesis_id,name from thesis_tbl a INNER JOIN thesis_documents_tbl b on a.thesis_id = b.thesis_id WHERE thesis_title LIKE '%$get_value%' "; 
+
+              //$result_query = "SELECT * from thesis_tbl where thesis_title LIKE '%$get_value%' ";
+
+              //$result_query = "SELECT a.thesis_id,thesis_title,b.thesis_id,name from thesis_tbl a INNER JOIN thesis_documents_tbl b on a.thesis_id = b.thesis_id  where thesis_title LIKE '%$get_value%' ";//dependent on thesis_id
+
+              $result_query = "SELECT a.group_id,thesis_title,thesis_id,b.group_id,name from thesis_tbl a INNER JOIN thesis_documents_tbl b on a.group_id = b.group_id  where thesis_title LIKE '%$get_value%' ";
+
+              $run_result = mysqli_query($con,$result_query);
+              
+              if(mysqli_num_rows($run_result)<1){
+                echo "<center><b>Oops! sorry, nothing was found in the database!</b></center>";
+                exit();
+              }
+              
+              while($row_result=mysqli_fetch_array($run_result)){
+                $thesis_id=$row_result['thesis_id'];
+                $thesis_title=$row_result['thesis_title'];
+                $document_name = $row_result['name'];
+           
+                echo "<div class='results'>
+                
+                <h5 style='margin-top:5em'>$thesis_id</h5>
+                <h3><a href='$thesis_id' target='_blank'>$thesis_title</a></h3>
+                <h4>$document_name</h4>
+                </div>";
+
+                } 
+              }
+            ?>
+            <!----------------------------------------------->     
+
           </div>
         </div>
       </div>

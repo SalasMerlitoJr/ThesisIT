@@ -231,8 +231,9 @@
     $records = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($records); 
     
-    if($row['email'] != $new_email){
-    //Trying to access array offset on value of type null 
+    if($row['email'] != $new_email){ 
+    //if(($row->email) != ($new_email)){
+    //ERROR: Trying to access array offset on value of type null 
       $sql="UPDATE users_tbl SET email='$new_email' where user_id = '$id' ";
 
       $stmt = $conn->prepare($sql);
@@ -241,7 +242,7 @@
       $msg="Email Changed Sucessfully";     
     }
     if($row['email'] == $new_email){
-    //Trying to access array offset on value of type null 
+    //ERROR: Trying to access array offset on value of type null 
       echo "<script>alert('Email already existed')</script>";
     } 
   }
@@ -249,9 +250,7 @@
   $sql = "SELECT * from users_tbl where user_id = '$id' ";
   $records = mysqli_query($conn, $sql);
   while  ($row = mysqli_fetch_object($records)) {
-
 ?>
-
             <!------------------> 
           <div>
         <?php  if($msg){?><div class="succWrap" id="msgshow"><center><?php echo htmlentities($msg); ?></center> </div><?php }?>

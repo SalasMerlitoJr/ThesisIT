@@ -84,7 +84,7 @@
 
       	<li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
 
-          <a href="fileUpload.php">File Upload</a>
+          <a href="fileUpload.php">Thesis Proposal</a>
 
         </li>
         <li class="cd-side__sub-item cd-side__item cd-side__item--has-children">
@@ -141,11 +141,11 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="panel panel-default">
-                  <div class="panel-heading">Notification</div>
+                  <div class="panel-heading">adviser rate</div>
                      <div class="panel-body">
             <!------------>
             
-          <form method="post" class="form-horizontal" enctype="multipart/form-data">
+         <!-- <form method="post" class="form-horizontal" enctype="multipart/form-data">
 
 <div class="form-group">
   <div class="col-sm-4">
@@ -173,7 +173,7 @@
 <div class="form-group">
   <label class="col-sm-2 control-label">Mobile<span style="color:red">*</span></label>
   <div class="col-sm-4">
-  <input type="number" name="mobile" class="form-control" required value="<?php echo htmlentities($result->mobile);?>">
+  <input type="number" name="mobile" class="form-control" required value="<?php //echo htmlentities($result->mobile);?>">
   </div>
 
   <label class="col-sm-2 control-label">Designation<span style="color:red">*</span></label>
@@ -194,9 +194,10 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
           
     <!------------->
+    <!--
   <div class="content-wrapper">
           <div class="container-fluid">
             <div class="row">
@@ -207,12 +208,14 @@
                       
                       </div>
                     </div>
+    -->                
+  <!------------->                    
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-  <!------------->
+          </div>     
+
         </div>
       </div>
     </div>

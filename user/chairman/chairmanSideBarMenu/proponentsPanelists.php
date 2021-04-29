@@ -140,9 +140,11 @@
             <!--<center><h2 class="page-title">Panel Assignment Page</h2></center>-->
             <center><h2><strong>PANELISTS</strong></h2></center>
 <!-------------------------->
+<!--
 <form method="POST" action="viewTeamswithPanelist.php">   
     <button type="submit" class="edit_btn" style="float: right">List of Groups</button> 
 </form>
+-->
 <!-------------------------->  
 
 <!-------------------------->

@@ -191,7 +191,7 @@
         <td><?php echo htmlentities($row4->name);?></td>
                                              
 <td>
-<a href="advisersTeamsView.php?viewgroups=<?php echo htmlentities($row4->user_id); ?>" > View Groups</a>
+<a href="advisersTeamsView.php?viewgroups=<?php echo htmlentities($row4->user_id); ?>"class="edit_btn" > View Groups</a>
 </td>
                     </tr>
                   <?php } ?>

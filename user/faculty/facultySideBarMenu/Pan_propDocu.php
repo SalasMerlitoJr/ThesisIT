@@ -125,48 +125,14 @@
 
     <?php 
 // Downloads files
-$conn = mysqli_connect('localhost', 'root', '', 'tmsdup_previous');
+$conn = mysqli_connect('localhost', 'root', '', 'tmsdup');
+
+$panelist_id = $_SESSION['user_id'];
 
 //$sql = "SELECT * FROM thesis_documents_tbl";
-$sql = "SELECT * FROM thesis_documents_tbl";
-
+$sql = "SELECT thesis_document_id,a.group_id,a.name,type,b.group_id,group_name,adviser,c.group_id,panelist_id FROM thesis_documents_tbl a INNER JOIN group_tbl b on a.group_id = b.group_id INNER JOIN thesis_panels_tbl c on b.group_id = c.group_id where type = 'MANUSCRIPT' ";
 $result = mysqli_query($conn, $sql);
-
 $files = mysqli_fetch_all($result, MYSQLI_ASSOC);
-/*
-
-if (isset($_GET['file_id'])) {
-    $id = $_GET['file_id'];
-
-    // fetch file to download from database
-    $sql = "SELECT * FROM thesis_documents_tbl WHERE thesis_document_id = $id";
-    $result = mysqli_query($conn, $sql);
-
-    $file = mysqli_fetch_assoc($result);
-    //$filepath = '../../../fileStorage/uploads/' . $file['name'];
-    $filepath = 'uploads/' . $file['name'];
-
-
-    if (file_exists($filepath)) {
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename=' . basename($filepath));
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        //header('Content-Length: ' . filesize('../../../fileStorage/uploads/' . $file['name']));
-        header('Content-Length: ' . filesize('uploads/' . $file['name']));
-        //readfile('../../../fileStorage/uploads/' . $file['name']);
-        readfile('uploads/' . $file['name']);
-
-        // Now update downloads count
-        $newCount = $file['downloads'] + 1;
-        $updateQuery = "UPDATE thesis_documents_tbl SET thesis_document_status=$newCount WHERE thesis_document_id=$id";
-        mysqli_query($conn, $updateQuery);
-        exit;
-    }
-
-} */
 
  ?>
 
@@ -184,20 +150,20 @@ if (isset($_GET['file_id'])) {
             <thead>
               <th>ID</th>
               <th>Filename</th>
-              <!--<th>size (in mb)</th>
-              <th>Downloads</th>-->
+              <th>Group Name</th>
               <th>Action</th>
           </thead>
           <tbody>
-            <?php foreach ($files as $file): ?>
+            <?php foreach ($files as $file): 
+              if($file['panelist_id'] == $panelist_id){ 
+                //if($file['type'] == "ERD"){ ?>
               <tr>
                 <td><?php echo $file['thesis_document_id']; ?></td>
                 <td><?php echo $file['name']; ?></td>
-                <!--<td><?php //echo floor($file['size'] / 1000) . ' KB'; ?></td>
-                <td><?php // echo $file['downloads']; ?></td>-->
+                <td><?php echo $file['group_name']; ?></td>
                 <td><a href="../../../fileStorage/downloads.php?file_id=<?php echo $file['thesis_document_id'] ?>">Download</a></td>
               </tr>
-            <?php endforeach;?>  
+            <?php }  endforeach; //}?>  
             </tbody>
             </table> 
             
@@ -207,7 +173,8 @@ if (isset($_GET['file_id'])) {
     </div>
   <!------->
   </main> <!-- .cd-main-content -->
-  <script src="../faculty_assets/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
+  <script src="../faculty_assets/js/util.js"></script> 
+  <!-- util functions included in the CodyHouse framework -->
   <script src="../faculty_assets/js/menu-aim.js"></script>
   <script src="../faculty_assets/js/main.js"></script>
 

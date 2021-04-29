@@ -1,7 +1,8 @@
 <?php
 // connect to the database
 // Downloads files
-$conn = mysqli_connect('localhost', 'root', '', 'tmsdup_previous');
+//$conn = mysqli_connect('localhost', 'root', '', 'tmsdup_previous');
+$conn = mysqli_connect('localhost', 'root', '', 'tmsdup');
 
 //$sql = "SELECT * FROM thesis_documents_tbl";
 $sql = "SELECT * FROM thesis_documents_tbl";
